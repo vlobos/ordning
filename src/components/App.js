@@ -8,22 +8,30 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      view: 'Login'
+      view: ''
     }
     this.validateLogin = this.validateLogin.bind(this)
   }
 
   componentDidMount(){
-    console.log("Mounted")
-    console.log(this.state.view)
+    this.setState({
+      view: 'login'
+    })
   }
 
   validateLogin(username, password){
     console.log(username, 'user', password, 'pass', this.state.view)
-    this.setState({
-      view: username
-    })
+    if (username === 'Sury'){
+      this.setState({
+        view: 'dashboard'
+      })
+    } else {
+      this.setState({
+        view: 'signup'
+      })
+    }
   }
+
 
   render() {
 
@@ -33,9 +41,9 @@ class App extends Component {
         <h1 className="App-title">ORDNING</h1>
         </header>
         <div>
-        <Login validateLogin={this.validateLogin}/>
-        <SignUp />
-        <Dashboard/>
+        {this.state.view === 'login' && <Login validateLogin={this.validateLogin}/> ||
+        this.state.view === 'signup' && <SignUp/> || 
+        this.state.view === 'dashboard' && <Dashboard/>}
         </div>
       </div>
     );

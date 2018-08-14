@@ -26,8 +26,8 @@ class Login extends React.Component{
     return (
       <div> 
         <h3> Login </h3>
-          <input type="text" name="company" placeholder="Organization" onChange={this.typeCredentials}/><br/>
-          <input type="text" name="password" placeholder="Password" onChange={this.typeCredentials}/><br/>
+          <input type="text" name="company" placeholder="Organization" autoComplete="off" onChange={this.typeCredentials}/><br/>
+          <input type="text" name="password" placeholder="Password" autoComplete="off" onChange={this.typeCredentials}/><br/>
           <button onClick={this.onSubmit}>Login</button> 
       </div>
     )
