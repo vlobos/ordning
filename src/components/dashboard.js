@@ -12,8 +12,11 @@ class Dashboard extends React.Component{
     this.createNewPO = this.createNewPO.bind(this)
   }
 
+  //get the Purchase Orders from db
   componentDidMount(){
-
+    this.setState({
+      pos: [[3, "Susan", 5423, 5423], [2, "Bobbi", 999, 999], [1, "Richard", 124, 124]]
+    })
   }
 
   createNewPO(){
@@ -34,7 +37,7 @@ class Dashboard extends React.Component{
         {this.state.view === 'createnew' && <NewPO/>}
         {this.state.view === 'purchaseorder' && <div>
           <h3> Purchase Orders </h3>
-            <ViewPO />
+            <ViewPO pos={this.state.pos}/>
         </div>}
       </div>
     )
