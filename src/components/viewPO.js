@@ -1,27 +1,27 @@
 import React from 'react';
 
-// class ViewPO extends React.Component{
-//   constructor(props){
-//     super(props);
-//   }
-
-//   render(){
-//     return(
-//       <div> View Purchase Order </div>
-//     )
-//   }
-// }
-
 const ViewPO = (props) => (
   <div> 
-    {props.pos.map((pop, index) => 
-      <li key={index}> {console.log(pop)} 
-      {pop.map((po, index) => 
-        <span key={index}> 
-          {po}. 
-        </span>)}
-      </li>
-    )}
+    <table>
+      <thead>
+        <tr>
+          <th>PO</th>
+          <th>Date</th>
+          <th>Vendor</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.pos.map((pop, index) => 
+        <tr key={index}>
+        {pop.map((po, index) => 
+          <td key={index}> 
+            {po}
+          </td>)}
+        </tr>
+        )}
+      </tbody>
+    </table>
   </div>
 )
 
