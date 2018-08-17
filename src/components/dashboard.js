@@ -18,7 +18,7 @@ class Dashboard extends React.Component{
   //get the Purchase Orders from db. Update count from DB
   componentDidMount(){
     this.setState({
-      pos: [[3, "Aug 8, 2018", "Susan", 5423], [2, "Aug 5, 2018", "Bobbi", 999], [1, "Aug 1, 2018", "Richard", 124]],
+      pos: [[87, 3, "Aug 8, 2018", "Susan", 5423], [78, 2, "Aug 5, 2018", "Bobbi", 999], [51, 1, "Aug 1, 2018", "Richard", 124]],
       count: 3
     })
   }
@@ -50,7 +50,7 @@ class Dashboard extends React.Component{
     return(
       <div> 
         {this.state.view === 'createnew' && <NewPO poNum={this.state.count} savePO={this.savePO}/>}
-        {this.state.view === 'details' && <ViewPO/>}
+        {this.state.view === 'details' && <ViewPO pos={this.props.pos}/>}
         {this.state.view === 'purchaseorder' && 
         <div>
           <h1> Dashboard </h1> 
@@ -67,8 +67,8 @@ class Dashboard extends React.Component{
             </thead>
             <tbody>
               {this.state.pos.map((pop, index) => 
-              <tr key={index} onClick={this.viewDet}>
-              {pop.map((po, index) => 
+              <tr key={pop[0]} onClick={this.viewDet}>
+              {pop.slice(1).map((po, index) => 
                 <td key={index}> 
                   {po}
                 </td>)}
