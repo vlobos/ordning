@@ -12,6 +12,7 @@ class Dashboard extends React.Component{
     }
     this.createNewPO = this.createNewPO.bind(this);
     this.savePO = this.savePO.bind(this)
+    this.viewDet = this.viewDet.bind(this)
   }
 
   //get the Purchase Orders from db. Update count from DB
@@ -37,19 +38,44 @@ class Dashboard extends React.Component{
     })
   }
 
+  viewDet(){
+    console.log('Now looking at PO Details')
+    this.setState({
+      view: 'details'
+    })
+  }
+
   render(){
     console.log(this.state.count)
     return(
       <div> 
-        {this.state.view === 'createnew' ||
-        <div> 
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count} savePO={this.savePO}/>}
+        {this.state.view === 'details' && <ViewPO/>}
+        {this.state.view === 'purchaseorder' && 
+        <div>
           <h1> Dashboard </h1> 
           <button onClick={this.createNewPO}>Create New </button> 
-        </div>}
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count} savePO={this.savePO}/>}
-        {this.state.view === 'purchaseorder' && <div>
           <h3> Purchase Orders </h3>
-            <ViewPO pos={this.state.pos}/>
+          <table>
+            <thead>
+              <tr>
+                <th>PO</th>
+                <th>Date</th>
+                <th>Vendor</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.pos.map((pop, index) => 
+              <tr key={index} onClick={this.viewDet}>
+              {pop.map((po, index) => 
+                <td key={index}> 
+                  {po}
+                </td>)}
+              </tr>
+              )}
+            </tbody>
+          </table>
         </div>}
       </div>
     )
