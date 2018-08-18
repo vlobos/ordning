@@ -25,7 +25,6 @@ class App extends Component {
   }
 
   validateLogin(username, password){
-    console.log(username, 'user', password, 'pass', this.state.view)
     if (username === 'Sury'){
       this.setState({
         view: 'dashboard'
@@ -38,7 +37,6 @@ class App extends Component {
   }
 
   createUser(username, password){
-    console.log(username, 'new user', password, 'new password')
     //check if username is available
     //if available, post
     //set state to login
@@ -70,7 +68,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <header className="App-header">

@@ -8,11 +8,13 @@ class Dashboard extends React.Component{
     this.state = {
       pos: [],
       count: 0,
-      view: 'purchaseorder',
+      view: 'dashboard',
+      dets: ['Dummy ID','Dummy PO', 'Date', 'Vendor', 'Amount']
     }
     this.createNewPO = this.createNewPO.bind(this);
     this.savePO = this.savePO.bind(this)
     this.viewDet = this.viewDet.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
   //get the Purchase Orders from db. Update count from DB
@@ -24,7 +26,6 @@ class Dashboard extends React.Component{
   }
 
   createNewPO(){
-    console.log('hello cole')
     this.setState({
       view: 'createnew'
     })
@@ -33,25 +34,38 @@ class Dashboard extends React.Component{
   //savePO will post to database
   savePO(){
     this.setState({
-      view: 'purchaseorder',
+      view: 'dashboard',
       count: this.state.count + 1
     })
   }
 
-  viewDet(){
-    console.log('Now looking at PO Details')
+  goBack(){
     this.setState({
-      view: 'details'
+      view: 'dashboard'
+    })
+  }
+
+  viewDet(key){
+    console.log(key, "this SHOULD be the id")
+    let pos= this.state.pos;
+    let dets = ''
+    for(let i = 0; i < pos.length; i++){
+      if (pos[i][0]=== key){
+        dets = pos[i]
+      }
+    }
+    this.setState({
+      view: 'details',
+      dets: dets
     })
   }
 
   render(){
-    console.log(this.state.count)
     return(
       <div> 
         {this.state.view === 'createnew' && <NewPO poNum={this.state.count} savePO={this.savePO}/>}
-        {this.state.view === 'details' && <ViewPO pos={this.props.pos}/>}
-        {this.state.view === 'purchaseorder' && 
+        {this.state.view === 'details' && <ViewPO dets={this.state.dets} goBack={this.goBack}/>}
+        {this.state.view === 'dashboard' && 
         <div>
           <h1> Dashboard </h1> 
           <button onClick={this.createNewPO}>Create New </button> 
@@ -66,8 +80,8 @@ class Dashboard extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.state.pos.map((pop, index) => 
-              <tr key={pop[0]} onClick={this.viewDet}>
+              {this.state.pos.map((pop) => 
+              <tr key={pop[0]} onClick={this.viewDet.bind(null,pop[0])}>
               {pop.slice(1).map((po, index) => 
                 <td key={index}> 
                   {po}
