@@ -81,7 +81,7 @@ class Dashboard extends React.Component{
             </thead>
             <tbody>
               {this.state.pos.map((pop) => 
-              <tr key={pop[0]} onClick={this.viewDet.bind(null,pop[0])}>
+              <tr key={pop[0]} onClick={() => this.viewDet(pop[0])}>
               {pop.slice(1).map((po, index) => 
                 <td key={index}> 
                   {po}

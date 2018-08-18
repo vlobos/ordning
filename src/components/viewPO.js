@@ -3,8 +3,9 @@ import React from 'react';
 const ViewPO = (props) => (
     <div> 
       <h2> Purchase Order: {props.dets[1]} </h2>
+      Date: {props.dets[2]} <br/>
       Project: <input type="text" name="project" placeholder="Project" autoCorrect="off"/><br/>
-      Vendor: {props.dets[2]}Ship To: <input type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
+      Vendor: {props.dets[3]} Ship To: <input type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
       <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
         <thead>
           <tr>

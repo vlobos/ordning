@@ -10,6 +10,7 @@ class NewPO extends React.Component{
       <div> 
         <h2> New Purchase Order </h2>
         Purchase Order: {this.props.poNum}<br/>
+        Date: <input type="text" name="project" placeholder="mm/dd/yyyy" autoCorrect="off"/><br/>
         Project: <input type="text" name="project" placeholder="Project" autoCorrect="off"/><br/>
         Vendor: <input type="text" name="vendor" placeholder="Vendor" autoCorrect="off"/> Ship To: <input type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
         <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
