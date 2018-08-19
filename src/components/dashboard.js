@@ -15,10 +15,16 @@ class Dashboard extends React.Component{
     this.savePO = this.savePO.bind(this)
     this.viewDet = this.viewDet.bind(this)
     this.goBack = this.goBack.bind(this)
+    this.getPurchaseOrders = this.getPurchaseOrders.bind(this)
   }
 
   //get the Purchase Orders from db. Update count from DB
   componentDidMount(){
+    console.log(this.props.user)
+    this.getPurchaseOrders(this.props.user);
+  }
+
+  getPurchaseOrders(user){
     this.setState({
       pos: [[87, 3, "Aug 8, 2018", "Susan", 5423], [78, 2, "Aug 5, 2018", "Bobbi", 999], [51, 1, "Aug 1, 2018", "Richard", 124]],
       count: 3

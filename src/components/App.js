@@ -76,7 +76,7 @@ class App extends Component {
         <div>
         {this.state.view === 'login' && <Login validateLogin={this.validateLogin} typeCredentials={this.typeCredentials} onSubmit={this.onSubmit}/> ||
         this.state.view === 'signup' && <SignUp dupe={this.state.dupe} createUser={this.createUser} typeCredentials={this.typeCredentials} onCreate={this.onCreate}/> || 
-        this.state.view === 'dashboard' && <Dashboard/>}
+        this.state.view === 'dashboard' && <Dashboard user={this.state.company}/>}
         </div>
       </div>
     );
