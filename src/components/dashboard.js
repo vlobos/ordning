@@ -51,7 +51,7 @@ class Dashboard extends React.Component{
       view: 'dashboard'
     })
   }
-
+//viewDet should take the id and find the purchase order with that id and set it to dets.
   viewDet(key){
     console.log(key, "this SHOULD be the id")
     let pos= this.state.pos;
