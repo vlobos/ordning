@@ -18,13 +18,14 @@ class Dashboard extends React.Component{
     this.getPurchaseOrders = this.getPurchaseOrders.bind(this)
   }
 
-  //get the Purchase Orders from db. Update count from DB
   componentDidMount(){
-    console.log(this.props.user)
-    this.getPurchaseOrders(this.props.user);
+    console.log(this.props.id)
+    this.getPurchaseOrders(this.props.id);
   }
-
-  getPurchaseOrders(user){
+  
+  //get the Purchase Orders from db. Update count from DB
+  getPurchaseOrders(id){
+    //axios request to /dashboard/:id
     this.setState({
       pos: [[87, 3, "Aug 8, 2018", "Susan", 5423], [78, 2, "Aug 5, 2018", "Bobbi", 999], [51, 1, "Aug 1, 2018", "Richard", 124]],
       count: 3

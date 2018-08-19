@@ -9,7 +9,8 @@ class App extends Component {
     super();
     this.state = {
       view: '',
-      dupe: 'off'
+      dupe: 'off',
+      id: ''
     }
     this.validateLogin = this.validateLogin.bind(this);
     this.createUser = this.createUser.bind(this)
@@ -27,7 +28,8 @@ class App extends Component {
   validateLogin(username, password){
     if (username === 'Sury'){
       this.setState({
-        view: 'dashboard'
+        view: 'dashboard',
+        id: 'whatever is returned from DB'
       })
     } else {
       this.setState({
@@ -76,7 +78,7 @@ class App extends Component {
         <div>
         {this.state.view === 'login' && <Login validateLogin={this.validateLogin} typeCredentials={this.typeCredentials} onSubmit={this.onSubmit}/> ||
         this.state.view === 'signup' && <SignUp dupe={this.state.dupe} createUser={this.createUser} typeCredentials={this.typeCredentials} onCreate={this.onCreate}/> || 
-        this.state.view === 'dashboard' && <Dashboard user={this.state.company}/>}
+        this.state.view === 'dashboard' && <Dashboard user={this.state.company} id={this.state.id}/>}
         </div>
       </div>
     );
