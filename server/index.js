@@ -5,11 +5,11 @@ const db = require('../db/config.js')
 
 const server = express();
 
-//const { router } = require('./router')
+const { router } = require('./router')
 
 server.use(express.static(path.join(__dirname,'../build')));
 
-//server.use('/', router)
+server.use('/', router)
 
 const port = 3002;
 
