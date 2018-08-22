@@ -9,7 +9,7 @@ const { router } = require('./router')
 
 server.use(express.static(path.join(__dirname,'../build')));
 
-server.use('/', router)
+server.use('/api', router)
 
 const port = 3002;
 

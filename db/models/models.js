@@ -3,7 +3,7 @@ const db = require('../config');
 
 const userLogin = {
     get: function(username, password, callback){
-        let query = 'select username, pass from usernames where username = ? and pass = ?';
+        let query = 'select id, username, pass from usernames where username = ? and pass = ?';
         db.query(query, [username, password], function(err, results){
             if (err) throw err;
             callback(err,results)
@@ -47,14 +47,14 @@ const vendors = {
 
 const projects = {
     get: function(userId, callback){
-        let query = 'select * from vendors where username_id = ?';
+        let query = 'select * from projects where username_id = ?';
         db.query(query, [userId], function(err, results){
             if (err) throw err;
             callback(err, results)
         })
     },
-    post: function(project, userId) {
-        let query = 'insert into vendors (project, username_id) values (?, ?)';
+    post: function(project, userId, callback) {
+        let query = 'insert into projects (project, username_id) values (?, ?)';
         db.query(query, [project, userId], function(err, results){
             if (err) throw err;
             callback(err, results)
@@ -71,7 +71,7 @@ const orders = {
         })
     },
     post: function(poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId, callback){
-        let query = 'insert into (po_num, username_id, date_created, total, sub, tax, shipping_cost, discount, notes, ship_to, vendor_id, project_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        let query = 'insert into purchase_orders (po_num, username_id, date_created, total, sub, tax, shipping_cost, discount, notes, ship_to, vendor_id, project_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         db.query(query,[poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId], function (err, results){
             if(err) throw err;
             callback(err, results)
@@ -87,7 +87,7 @@ const lineItems = {
             callback(err, results)
         })
     },
-    post: function(poId, item, details, qty, price, amount){
+    post: function(poId, item, details, qty, price, amount, callback){
         let query = 'insert into line_items (po_id, item, item_details, qty, unit_price, amount) values (?, ?, ?, ?, ?, ?)'
         db.query(query, [poId, item, details, qty, price, amount], function(err, results){
             if (err) throw err;
