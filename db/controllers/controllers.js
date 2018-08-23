@@ -2,7 +2,7 @@ const mod = require('../models/models')
 
 const login = {
     get: function(req, res){
-        let username = req.query.username;
+        let username = req.params.username;
         let password = req.query.pass;
         mod.userLogin.get(username, password, function(err, results){
             if (err){ 
@@ -91,7 +91,7 @@ const projects = {
 
 const orders = {
     get: function(req, res){
-        let userId = req.query.userId;
+        let userId = req.params.userId;
         mod.orders.get(userId, function(err, results){
             if (err){
                 throw err;
@@ -123,6 +123,19 @@ const orders = {
     }
 }
 
+const orderDets = {
+  get: function(req, res){
+    let poId = req.params.poId;
+    mod.orderDets.get(poId, function(err, results){
+      if (err){
+        throw err;
+      } else {
+        res.send(results)
+      }
+    })
+  }
+}
+
 const items = {
     get: function(req, res){
         let poId = req.query.poId;
@@ -152,5 +165,5 @@ const items = {
 }
 
 module.exports = {
-    login, signup, vendors, projects, orders, items
+    login, signup, vendors, projects, orders, items, orderDets
 }

@@ -6,6 +6,7 @@ class NewPO extends React.Component{
   }
 
   render(){
+    {console.log(this.props.poNum, "count in new")}
     return(
       <div> 
         <h2> New Purchase Order </h2>

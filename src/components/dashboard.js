@@ -1,6 +1,7 @@
 import React from 'react';
 import ViewPO from './viewPO';
-import NewPO from './newPO'
+import NewPO from './newPO';
+import axios from 'axios';
 
 class Dashboard extends React.Component{
   constructor(props){
@@ -9,7 +10,8 @@ class Dashboard extends React.Component{
       pos: [],
       count: 0,
       view: 'dashboard',
-      dets: ['Dummy ID','Dummy PO', 'Date', 'Vendor', 'Amount']
+      dets: '',
+      lineItems: ''
     }
     this.createNewPO = this.createNewPO.bind(this);
     this.savePO = this.savePO.bind(this)
@@ -19,16 +21,23 @@ class Dashboard extends React.Component{
   }
 
   componentDidMount(){
-    console.log(this.props.id)
     this.getPurchaseOrders(this.props.id);
   }
   
-  //get the Purchase Orders from db. Update count from DB
   getPurchaseOrders(id){
-    //axios request to /dashboard/:id
-    this.setState({
-      pos: [[87, 3, "Aug 8, 2018", "Susan", 5423], [78, 2, "Aug 5, 2018", "Bobbi", 999], [51, 1, "Aug 1, 2018", "Richard", 124]],
-      count: 3
+    axios.get('/api/dashboard/' + id)
+    .then((res)=> {
+      let pos = res.data;
+      let count = res.data[0].po_num
+      this.setState({
+        pos: pos,
+        count: count
+      })
+    })
+    .catch((err)=>{
+      if (err){
+        console.log(err)
+      }
     })
   }
 
@@ -51,27 +60,40 @@ class Dashboard extends React.Component{
       view: 'dashboard'
     })
   }
-//viewDet should take the id and find the purchase order with that id and set it to dets.
+
   viewDet(key){
-    console.log(key, "this SHOULD be the id")
-    let pos= this.state.pos;
-    let dets = ''
-    for(let i = 0; i < pos.length; i++){
-      if (pos[i][0]=== key){
-        dets = pos[i]
-      }
-    }
-    this.setState({
-      view: 'details',
-      dets: dets
+  //get PO details
+    axios.get('/api/po/'+ key)
+    .then((res)=> {
+      let dets = res.data[0];
+      //get PO line items
+      axios.get('api/lineitems', {params: { poId: key }})
+      .then((res)=>{
+        let items = res.data;
+        this.setState({
+          view: 'details',
+          dets: dets,
+          lineItems: items
+        })
+      })
+      .catch((err)=>{
+        if (err){
+          console.log(err)
+        }
+      })
     })
+    .catch((err)=>{
+      if(err){
+        console.log(err)
+      }
+    });
   }
 
   render(){
     return(
       <div> 
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count} savePO={this.savePO}/>}
-        {this.state.view === 'details' && <ViewPO dets={this.state.dets} goBack={this.goBack}/>}
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} savePO={this.savePO}/>}
+        {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
         <div>
           <h1> Dashboard </h1> 
@@ -87,14 +109,15 @@ class Dashboard extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {this.state.pos.map((pop) => 
-              <tr key={pop[0]} onClick={() => this.viewDet(pop[0])}>
-              {pop.slice(1).map((po, index) => 
-                <td key={index}> 
-                  {po}
-                </td>)}
-              </tr>
-              )}
+                {this.state.pos.map((poObj) =>
+                <tr key={poObj.id} onClick={()=>this.viewDet(poObj.id)}>
+                  {Object.keys(poObj).slice(1).map((item, column) =>{
+                    return <td key = {column}>
+                    {poObj[item]}
+                    </td>
+                  })}
+                </tr>
+                )}
             </tbody>
           </table>
         </div>}

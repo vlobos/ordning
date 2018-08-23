@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Login from './login';
 import SignUp from './signUp';
 import Dashboard from './dashboard';
-
+import axios from 'axios';
 
 class App extends Component {
   constructor(){
@@ -17,6 +17,7 @@ class App extends Component {
     this.typeCredentials = this.typeCredentials.bind(this);
     this.onSubmit = this.onSubmit.bind(this)
     this.onCreate = this.onCreate.bind(this)
+
   }
 
   componentDidMount(){
@@ -26,16 +27,25 @@ class App extends Component {
   }
 
   validateLogin(username, password){
-    if (username === 'Sury'){
-      this.setState({
-        view: 'dashboard',
-        id: 'whatever is returned from DB'
+    axios.get('/api/login/'+ username, { params: {
+      pass: password
+    }})
+      .then((res) => {
+        if (res.data.length === 0){
+          this.setState({
+            view: 'signup'
+          })
+        } else {
+          let userId = res.data[0].id;
+          this.setState({
+            view: 'dashboard',
+            id: userId
+          })
+        }
       })
-    } else {
-      this.setState({
-        view: 'signup'
+      .catch((err) => {
+        console.log('Failure')
       })
-    }
   }
 
   createUser(username, password){
