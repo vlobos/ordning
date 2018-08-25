@@ -112,6 +112,7 @@ class NewPO extends React.Component{
             </tr>
           </tbody>
         </table>
+        <button onClick={this.props.goBack}>Cancel</button>
         <button onClick={this.props.savePO}>Save</button>
       </div>
     )

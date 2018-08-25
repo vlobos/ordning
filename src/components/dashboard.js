@@ -92,7 +92,7 @@ class Dashboard extends React.Component{
   render(){
     return(
       <div> 
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} savePO={this.savePO}/>}
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} savePO={this.savePO} goBack={this.goBack}/>}
         {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
         <div>
