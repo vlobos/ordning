@@ -11,7 +11,8 @@ class Dashboard extends React.Component{
       count: 0,
       view: 'dashboard',
       dets: '',
-      lineItems: ''
+      lineItems: '',
+      date: ''
     }
     this.createNewPO = this.createNewPO.bind(this);
     this.savePO = this.savePO.bind(this)
@@ -41,7 +42,29 @@ class Dashboard extends React.Component{
     })
   }
 
+  getDate(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = mm + '/' + dd + '/' + yyyy;
+
+    this.setState({
+      date: today
+    })
+  }
+
   createNewPO(){
+    this.getDate();
     this.setState({
       view: 'createnew'
     })
@@ -92,7 +115,7 @@ class Dashboard extends React.Component{
   render(){
     return(
       <div> 
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} savePO={this.savePO} goBack={this.goBack}/>}
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} savePO={this.savePO} goBack={this.goBack} date={this.state.date}/>}
         {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
         <div>
