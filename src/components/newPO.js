@@ -8,16 +8,21 @@ class NewPO extends React.Component{
       filler: '',
       projectList: '',
       projectName: '',
-      projectId: ''
+      projectId: '',
+      vendorList: '',
+      vendorName: '',
+      vendorId: ''
     }
   this.autocompleteProjects = this.autocompleteProjects.bind(this)
+  this.autocompleteVendors = this.autocompleteVendors.bind(this)
+  this.postNewPO = this.postNewPO.bind(this)
   }
 
   componentDidMount(){
-    this.fillDropDowns(this.props.id);
-  }
+    this.getList(this.props.userId);
+  };
 
-  fillDropDowns(id){
+  getList(id){
     let projectList = [];
     let vendorList = [];
     axios.get("/api/projects", { params: { userId: id } })
@@ -111,26 +116,56 @@ class NewPO extends React.Component{
   document.addEventListener("click", function (e) {
       closeAllLists(e.target);
   });
-  }
-
+  };
 
   autocompleteProjects(e){
     this.autocomplete(document.getElementById(e.target.id), this.state.projectList);
-  }
+  };
 
+  autocompleteVendors(e){
+    this.autocomplete(document.getElementById(e.target.id), this.state.vendorList)
+  };
+
+  //updateProjectState and showState will eventually be deleted
   updateProjectState(){
     let projectName = document.getElementById('projInput').value;
     let projectId = document.getElementById('projInput').className;
-    let element = document.getElementById('projInput')
+    let vendorName = document.getElementById('vendorInput').value;
+    let vendorId = document.getElementById('vendorInput').className;
     this.setState({
       projectName: projectName,
-      projectId: projectId
+      projectId: projectId,
+      vendorName: vendorName,
+      vendorId: vendorId
     })
-    console.log(element, "heyhey")
-  }
+  };
 
   showState(){
-    console.log(this.state.projectName, "name", this.state.projectId, "id")
+    console.log(this.state.projectName, "project name", this.state.projectId, "project id", this.state.vendorName, "project vendor", this.state.vendorId, "vendor id")
+  };
+
+/*
+postNewPO will take in:
+poNumber -- x
+user id --
+poDate
+total
+sub
+tax
+shipcost
+discount
+note
+vendor id
+Project id
+vendor name
+project name
+*/
+
+  postNewPO(){
+    //this.props.savePO();
+    console.log("inpostnewpo")
+    let shippingaddress = document.getElementById('shipto').value;
+
   }
 
   render(){
@@ -140,17 +175,23 @@ class NewPO extends React.Component{
         Purchase Order: {this.props.poNum}<br/>
         Date: {this.props.date}<br/>
         Project: 
-
         <form autoComplete="off">
           <div className="autocomplete" style={{width: "300px"}}>
-            <input id="projInput" type="text" name="project" placeholder="project" onChange={this.autocompleteProjects}></input>
+            <input id="projInput" type="text" name="Project" placeholder="project" onChange={this.autocompleteProjects}></input>
           </div>
         </form>
+        Vendor: 
+        <form autoComplete="off">
+          <div className="autocomplete" style={{width: "300px"}}>
+            <input id="vendorInput" type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
+          </div>
+        </form>
+        
         <button onClick={this.updateProjectState.bind(this)}>Update project state</button>
         <button onClick={this.showState.bind(this)}>Showproject state</button>
 
-        <br/>
-        Vendor: <input type="text" name="vendor" placeholder="Vendor" autoCorrect="off"/> Ship To: <input type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
+        <br/> 
+        Ship To: <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
         <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
           <thead>
             <tr>
@@ -250,7 +291,7 @@ class NewPO extends React.Component{
           </tbody>
         </table>
         <button onClick={this.props.goBack}>Cancel</button>
-        <button onClick={this.props.savePO}>Save</button>
+        <button onClick={this.postNewPO}>Save</button>
       </div>
     )
   }

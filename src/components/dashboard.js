@@ -22,7 +22,7 @@ class Dashboard extends React.Component{
   }
 
   componentDidMount(){
-    this.getPurchaseOrders(this.props.id);
+    this.getPurchaseOrders(this.props.userId);
   }
   
   getPurchaseOrders(id){
@@ -47,17 +47,13 @@ class Dashboard extends React.Component{
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
-
     if(dd<10) {
         dd = '0'+dd
     } 
-
     if(mm<10) {
         mm = '0'+mm
     } 
-
     today = mm + '/' + dd + '/' + yyyy;
-
     this.setState({
       date: today
     })
@@ -70,7 +66,6 @@ class Dashboard extends React.Component{
     })
   }
 
-  //savePO will post to database
   savePO(){
     this.setState({
       view: 'dashboard',
@@ -115,7 +110,7 @@ class Dashboard extends React.Component{
   render(){
     return(
       <div> 
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} date={this.state.date} id={this.props.id} savePO={this.savePO} goBack={this.goBack}/>}
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} date={this.state.date} userId={this.props.userId} savePO={this.savePO} goBack={this.goBack}/>}
         {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
         <div>

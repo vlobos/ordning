@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       view: '',
       dupe: 'off',
-      id: ''
+      userId: ''
     }
     this.validateLogin = this.validateLogin.bind(this);
     this.createUser = this.createUser.bind(this)
@@ -39,7 +39,7 @@ class App extends Component {
           let userId = res.data[0].id;
           this.setState({
             view: 'dashboard',
-            id: userId
+            userId: userId
           })
         }
       })
@@ -88,7 +88,7 @@ class App extends Component {
         <div>
         {this.state.view === 'login' && <Login validateLogin={this.validateLogin} typeCredentials={this.typeCredentials} onSubmit={this.onSubmit}/> ||
         this.state.view === 'signup' && <SignUp dupe={this.state.dupe} createUser={this.createUser} typeCredentials={this.typeCredentials} onCreate={this.onCreate}/> || 
-        this.state.view === 'dashboard' && <Dashboard user={this.state.company} id={this.state.id}/>}
+        this.state.view === 'dashboard' && <Dashboard user={this.state.company} userId={this.state.userId}/>}
         </div>
       </div>
     );
