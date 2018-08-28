@@ -49,7 +49,7 @@ class NewPO extends React.Component{
     });
   };
 
-  autocomplete(inp, arr) {
+  autocomplete(inp, add, em, ph, arr) {
     console.log(arr, "Inside Autocomplete")
     let currentFocus;
     inp.addEventListener("input", function(e) {
@@ -68,9 +68,18 @@ class NewPO extends React.Component{
             b.innerHTML = "<strong>" + arr[i][1].substring(0, val.length) + "</strong>";
             b.innerHTML += arr[i][1].substring(val.length);
             b.innerHTML += "<input className='hiddenId' type='hidden' id='"+ arr[i][0]+ "' value='" + arr[i][1] + "'>";
+            b.innerHTML += "<input id='addressId' type='hidden' value='" + arr[i][2] + "'>";
+            b.innerHTML += "<input id='phoneId' type='hidden' value='" + arr[i][3] + "'>";
+            b.innerHTML += "<input id='emailId' type='hidden' value='" + arr[i][4] + "'>";
                 b.addEventListener("click", function(e) {
                 inp.value = this.getElementsByTagName("input")[0].value;
                 inp.className = this.getElementsByTagName("input")[0].id;
+                
+                if (add != null && em != null && ph != null){
+                  add.value = this.getElementsByTagName("input")[1].value;
+                  ph.value = this.getElementsByTagName("input")[2].value;
+                  em.value = this.getElementsByTagName("input")[3].value;
+                }
                 closeAllLists();
             });
             a.appendChild(b);
@@ -119,11 +128,15 @@ class NewPO extends React.Component{
   };
 
   autocompleteProjects(e){
-    this.autocomplete(document.getElementById(e.target.id), this.state.projectList);
+    this.autocomplete(document.getElementById(e.target.id), null, null, null, this.state.projectList);
   };
 
   autocompleteVendors(e){
-    this.autocomplete(document.getElementById(e.target.id), this.state.vendorList)
+    let inp = document.getElementById(e.target.id);
+    let add = document.getElementById("address");
+    let ph = document.getElementById("phone");
+    let em = document.getElementById("email");
+    this.autocomplete(inp, add, ph, em, this.state.vendorList)
   };
 
   //updateProjectState and showState will eventually be deleted
@@ -132,6 +145,14 @@ class NewPO extends React.Component{
     let projectId = document.getElementById('projInput').className;
     let vendorName = document.getElementById('vendorInput').value;
     let vendorId = document.getElementById('vendorInput').className;
+    console.log(vendorId, projectId,"Herere")
+    if (!vendorId){
+      console.log("no vendor ID");
+      //axios.post("/api/vendors", { params: { } })
+    }
+    if (projectId === null){
+      console.log("no project Id")
+    }
     this.setState({
       projectName: projectName,
       projectId: projectId,
@@ -146,9 +167,10 @@ class NewPO extends React.Component{
 
 /*
 postNewPO will take in:
-poNumber -- x
-user id --
-poDate
+Order:
+poNumber -- x this.props.poNum
+user id -- this.props.userId
+poDate -- x this.props.date
 total
 sub
 tax
@@ -157,8 +179,19 @@ discount
 note
 vendor id
 Project id
+
 vendor name
 project name
+
+line items:
+poId-- HOW DO I GET THIS?!
+item
+itemdetails
+qty
+unitprice
+amount
+
+
 */
 
   postNewPO(){
@@ -186,12 +219,17 @@ project name
             <input id="vendorInput" type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
           </div>
         </form>
+        <div>
+          <input id="address" type="text" name="address" placeholder="Address" style={{width:"400px"}}></input><br/>
+          <input id="phone" type="text" name="phone" placeholder="Phone" style={{width:"400px"}}></input>
+          <input id="email" type="text" name="email" placeholder="E-mail" style={{width:"400px"}}></input>
+        </div>
         
         <button onClick={this.updateProjectState.bind(this)}>Update project state</button>
         <button onClick={this.showState.bind(this)}>Showproject state</button>
 
         <br/> 
-        Ship To: <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off"/><br/>
+        Ship To: <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off" style={{width:"400px"}}/><br/>
         <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
           <thead>
             <tr>
