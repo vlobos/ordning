@@ -7,6 +7,9 @@ const server = express();
 
 const { router } = require('./router')
 
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
 server.use(express.static(path.join(__dirname,'../build')));
 
 server.use('/api', router)

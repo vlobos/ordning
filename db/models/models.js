@@ -69,8 +69,8 @@ const orders = {
           callback(err, results)
       })
   },
-  post: function(poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId, callback){
-      let query = 'insert into purchase_orders (po_num, username_id, date_created, total, sub, tax, shipping_cost, discount, notes, ship_to, vendor_id, project_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  post: function(poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId, callback) {
+      let query = `insert into purchase_orders (po_num, username_id, date_created, total, sub, tax, shipping_cost, discount, notes, ship_to, vendor_id, project_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (select id from vendors where vendor=? and username_id=${userId}), (select id from projects where project=? and username_id=${userId}))`;
       db.query(query,[poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId], function (err, results){
           if(err) throw err;
           callback(err, results)

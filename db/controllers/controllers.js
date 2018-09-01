@@ -50,11 +50,11 @@ const vendors = {
         })
     },
     post: function(req, res){
-        let userId = req.query.userId;
-        let vendor = req.query.vendor;
-        let address = req.query.address;
-        let phone = req.query.phone;
-        let email = req.query.email;
+        let userId = req.body.params.userId;
+        let vendor = req.body.params.vendor;
+        let address = req.body.params.address;
+        let phone = req.body.params.phone;
+        let email = req.body.params.email;
         mod.vendors.post(userId, vendor, address, phone, email, function(err,results){
             if(err) {
                 throw err;
@@ -77,8 +77,8 @@ const projects = {
         })
     },
     post: function(req, res){
-        let project = req.query.project;
-        let userId = req.query.userId;
+        let project = req.body.params.project;
+        let userId = req.body.params.userId;
         mod.projects.post(project, userId, function(err, results){
             if(err){
                 throw err;
@@ -101,22 +101,23 @@ const orders = {
         })
     },
     post: function(req, res){
-        let poNum = req.query.poNum;
-        let userId = req.query.userId;
-        let date = req.query.date;
-        let total = req.query.total;
-        let sub = req.query.sub;
-        let tax = req.query.tax;
-        let shipCost = req.query.shipCost;
-        let discount = req.query.discount;
-        let notes = req.query.notes;
-        let shipTo = req.query.shipTo;
-        let vendorId = req.query.vendorId;
-        let projectId = req.query.projectId;
+        let poNum = req.body.params.poNum;
+        let userId = req.body.params.userId;
+        let date = req.body.params.date;
+        let total = req.body.params.total;
+        let sub = req.body.params.sub;
+        let tax = req.body.params.tax;
+        let shipCost = req.body.params.shipCost;
+        let discount = req.body.params.discount;
+        let notes = req.body.params.notes;
+        let shipTo = req.body.params.shipTo;
+        let vendorId = req.body.params.vendorId;
+        let projectId = req.body.params.projectId;
         mod.orders.post(poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId, function(err, results){
             if (err){
                 throw err;
             } else {
+              console.log(req.body, "body")
                 res.send('Success!')
             }
         })
