@@ -88,6 +88,16 @@ const orderDets = {
   }
 };
 
+const orderId = {
+  get: function(callback) {
+    let query = 'select max(id) as po_id from purchase_orders';
+    db.query(query, function(err, results) {
+      if(err) throw err;
+      callback(err, results);
+    })
+  }
+}
+
 const lineItems = {
   get: function(poId, callback){
       let query = 'select item, item_details, qty, unit_price, amount from line_items where po_id = ?';
@@ -97,7 +107,7 @@ const lineItems = {
       })
   },
   post: function(poId, item, details, qty, price, amount, callback){
-      let query = 'insert into line_items (po_id, item, item_details, qty, unit_price, amount) values (?, ?, ?, ?, ?, ?)'
+      let query = 'insert into line_items (po_id, item, item_details, qty, unit_price, amount) values (?, ?, ?, ?, ?, ?)';
       db.query(query, [poId, item, details, qty, price, amount], function(err, results){
           if (err) throw err;
           callback(err, results)
@@ -106,5 +116,5 @@ const lineItems = {
 };
 
 module.exports = {
-    userLogin, userSignup, vendors, projects, orders, lineItems, orderDets
+    userLogin, userSignup, vendors, projects, orders, lineItems, orderId, orderDets
 }

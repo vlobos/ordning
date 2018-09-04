@@ -5,7 +5,6 @@ class NewPO extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      filler: '',
       projectList: '',
       projectName: '',
       projectId: '',
@@ -138,8 +137,7 @@ class NewPO extends React.Component{
     this.autocomplete(inp, add, ph, em, this.state.vendorList)
   };
 
-  //postVendorProject
-  postVendorProject(id, vendorName, vendorId, vendorAdd, phone, email, projectName, projectId, poNum, date, total, sub, tax, shipCost, discount, notes, shipTo) {
+  postPurchDetails(id, vendorName, vendorId, vendorAdd, phone, email, projectName, projectId, poNum, date, total, sub, tax, shipCost, discount, notes, shipTo) {
 
     if(!vendorId && !projectId) {
       console.log("no vendor or project id")
@@ -175,6 +173,7 @@ class NewPO extends React.Component{
         })
           .then((response) => {
             console.log(response);
+            this.postLineItems();
           })
           .catch((err) => {
             console.log(err);
@@ -187,9 +186,7 @@ class NewPO extends React.Component{
       .catch((err) => {
         console.log(err);
       })
-    };
-
-    if(!vendorId) {
+    } else if(!vendorId) {
       console.log("no vendor id")
       axios.post("/api/vendors",  { params: { 
         userId: id,
@@ -217,6 +214,7 @@ class NewPO extends React.Component{
       })
         .then((response) => {
           console.log(response);
+          this.postLineItems();
         })
         .catch((err) => {
           console.log(err);
@@ -225,9 +223,7 @@ class NewPO extends React.Component{
       .catch((err) => {
         console.log(err)
       })
-    };
-
-    if(!projectId) {
+    } else if(!projectId) {
       console.log("no project id")
       axios.post("/api/projects", { params: {
         project: projectName,
@@ -252,6 +248,7 @@ class NewPO extends React.Component{
         })
         .then((response) => {
           console.log(response);
+          this.postLineItems();
         })
         .catch((err) => {
           console.log(err);
@@ -260,9 +257,7 @@ class NewPO extends React.Component{
       .catch((err) => {
         console.log(err);
       })
-    }
-
-    if(vendorId && projectId){
+    } else if(vendorId && projectId){
       console.log("ProjectId is: ", projectId, ". VendorId is: ", vendorId)
       axios.post("/api/dashboard/" + id, { params: {
         poNum: poNum,
@@ -281,6 +276,7 @@ class NewPO extends React.Component{
       })
       .then((response) => {
         console.log(response);
+        this.postLineItems();
       })
       .catch((err) => {
         console.log(err);
@@ -288,21 +284,61 @@ class NewPO extends React.Component{
     }
   };
 
-  updateProjectState(){
+  postLineItems(){
+    //get PurchaseOrder Id
+    axios.get("/api/purch")
+      .then((response) => {
+        let po_id = response.data[0].po_id;
+        //get all Line Item rows
+        let tbl = document.getElementById('litable');
+        //get all row data and post to db
+        for (let i = 1; i <3; i++){
+          this.setState({
+            poId: po_id,
+            item: tbl.rows[i].cells[0].children[0].value,
+            details: tbl.rows[i].cells[1].children[0].value,
+            qty: tbl.rows[i].cells[2].children[0].value,
+            price: tbl.rows[i].cells[3].children[0].value,
+            amount: tbl.rows[i].cells[4].children[0].value
+          }, function() {
+            axios.post("api/lineitems", { params: {
+              poId: this.state.poId,
+              item: this.state.item,
+              details: this.state.details,
+              qty: this.state.qty,
+              price: this.state.price,
+              amount: this.state.amount
+            } })
+            .then((response) => {
+              //update count and return to Dashboard
+              console.log(response);
+              this.props.updateCount(this.props.poNum, this.props.userId);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+          })
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  };
+
+  postNewPO(){
     let id = this.props.userId;
     let date = this.props.date;
     let poNum = this.props.poNum;
-    //for postProject
+    //for Project
     let projectName = document.getElementById('projInput').value;
     let projectId = document.getElementById('projInput').className || null
-    //for postVendor
+    //for Vendor
     let vendorName = document.getElementById('vendorInput').value;
     let vendorId = document.getElementById('vendorInput').className || null
     let vendorAdd = document.getElementById('address').value;
     let phone = document.getElementById('phone').value;
     let email = document.getElementById('email').value;
-
-    //for postPO
+    //for postPurchDetails
     let total = document.getElementById('total').value;
     let sub = document.getElementById('subtotal').value;
     let tax = document.getElementById('tax').value;
@@ -310,7 +346,6 @@ class NewPO extends React.Component{
     let discount = document.getElementById('discount').value;
     let notes = document.getElementById('notes').value;
     let shipTo = document.getElementById('shipto').value;
-    //for postLI
 
     this.setState({
       projectName: projectName,
@@ -321,21 +356,9 @@ class NewPO extends React.Component{
       phone: phone,
       email: email
     }, function() {
-    this.postVendorProject(id, vendorName, vendorId, vendorAdd, phone, email, projectName, projectId, poNum, date, total, sub, tax, shipCost, discount, notes, shipTo)
+    this.postPurchDetails(id, vendorName, vendorId, vendorAdd, phone, email, projectName, projectId, poNum, date, total, sub, tax, shipCost, discount, notes, shipTo)
     })
   };
-
-  showState(){
-    console.log(this.state)
-  };
-
-
-//This is to test
-  postNewPO(){
-    // this.updateProjectState() 
-    this.props.savePO();
-
-  }
 
   render(){
     return(
@@ -361,12 +384,9 @@ class NewPO extends React.Component{
           <input id="phone" type="text" name="phone" placeholder="Phone" style={{width:"400px"}}></input>
         </div>
         
-        <button onClick={this.updateProjectState.bind(this)}>Update project state</button>
-        <button onClick={this.showState.bind(this)}>Showproject state</button>
-
         <br/> 
         Ship To: <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off" style={{width:"400px"}}/><br/>
-        <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
+        <table id="litable" cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
           <thead>
             <tr>
               <th style={{width:"10%"}}>Item</th>

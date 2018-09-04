@@ -66,11 +66,12 @@ class Dashboard extends React.Component{
     })
   }
 
-  savePO(){
+  updateCount(poNum, id){
     this.setState({
       view: 'dashboard',
-      count: this.state.count + 1
+      count: poNum
     })
+    this.getPurchaseOrders(id)
   }
 
   goBack(){
@@ -110,7 +111,7 @@ class Dashboard extends React.Component{
   render(){
     return(
       <div> 
-        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} date={this.state.date} userId={this.props.userId} savePO={this.savePO} goBack={this.goBack}/>}
+        {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} date={this.state.date} userId={this.props.userId} updateCount={this.updateCount} goBack={this.goBack}/>}
         {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
         <div>

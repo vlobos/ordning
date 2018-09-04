@@ -20,6 +20,9 @@ router.route('/dashboard/:userId')
     .get(ctrl.orders.get)
     .post(ctrl.orders.post)
 
+router.route('/purch')
+    .get(ctrl.orderId.get)
+
 router.route('/lineitems')
     .get(ctrl.items.get)
     .post(ctrl.items.post)

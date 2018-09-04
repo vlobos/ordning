@@ -115,10 +115,9 @@ const orders = {
         let projectId = req.body.params.projectId;
         mod.orders.post(poNum, userId, date, total, sub, tax, shipCost, discount, notes, shipTo, vendorId, projectId, function(err, results){
             if (err){
-                throw err;
+              throw err;
             } else {
-              console.log(req.body, "body")
-                res.send('Success!')
+              res.send('Success!')
             }
         })
     }
@@ -129,6 +128,18 @@ const orderDets = {
     let poId = req.params.poId;
     mod.orderDets.get(poId, function(err, results){
       if (err){
+        throw err;
+      } else {
+        res.send(results)
+      }
+    })
+  }
+}
+
+const orderId = {
+  get: function(req, res) {
+    mod.orderId.get(function(err, results) {
+      if(err) {
         throw err;
       } else {
         res.send(results)
@@ -149,12 +160,12 @@ const items = {
         })
     },
     post: function(req, res){
-        let poId = req.query.poId;
-        let item = req.query.item;
-        let details = req.query.details;
-        let qty = req.query.qty;
-        let price = req.query.price;
-        let amount = req.query.amount;
+        let poId = req.body.params.poId;
+        let item = req.body.params.item;
+        let details = req.body.params.details;
+        let qty = req.body.params.qty;
+        let price = req.body.params.price;
+        let amount = req.body.params.amount;
         mod.lineItems.post(poId, item, details, qty, price, amount, function(err, results){
             if (err){
                 throw err;
@@ -166,5 +177,5 @@ const items = {
 }
 
 module.exports = {
-    login, signup, vendors, projects, orders, items, orderDets
+    login, signup, vendors, projects, orders, items, orderDets, orderId
 }
