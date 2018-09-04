@@ -15,7 +15,7 @@ class Dashboard extends React.Component{
       date: ''
     }
     this.createNewPO = this.createNewPO.bind(this);
-    this.savePO = this.savePO.bind(this)
+    this.updateCount = this.updateCount.bind(this)
     this.viewDet = this.viewDet.bind(this)
     this.goBack = this.goBack.bind(this)
     this.getPurchaseOrders = this.getPurchaseOrders.bind(this)

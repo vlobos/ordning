@@ -41,7 +41,6 @@ class NewPO extends React.Component{
       vendors.forEach((listed) => {
         vendorList.push([listed.id, listed.vendor, listed.vendor_address, listed.phone, listed.email])
       })
-      console.log(vendorList)
       this.setState({
         vendorList: vendorList
       })
@@ -49,7 +48,6 @@ class NewPO extends React.Component{
   };
 
   autocomplete(inp, add, em, ph, arr) {
-    console.log(arr, "Inside Autocomplete")
     let currentFocus;
     inp.addEventListener("input", function(e) {
         var a, b, i, val = this.value;
@@ -140,7 +138,6 @@ class NewPO extends React.Component{
   postPurchDetails(id, vendorName, vendorId, vendorAdd, phone, email, projectName, projectId, poNum, date, total, sub, tax, shipCost, discount, notes, shipTo) {
 
     if(!vendorId && !projectId) {
-      console.log("no vendor or project id")
       axios.post("/api/vendors",  { params: { 
         userId: id,
         vendor: vendorName,
@@ -187,7 +184,6 @@ class NewPO extends React.Component{
         console.log(err);
       })
     } else if(!vendorId) {
-      console.log("no vendor id")
       axios.post("/api/vendors",  { params: { 
         userId: id,
         vendor: vendorName,
@@ -224,7 +220,6 @@ class NewPO extends React.Component{
         console.log(err)
       })
     } else if(!projectId) {
-      console.log("no project id")
       axios.post("/api/projects", { params: {
         project: projectName,
         userId: id
@@ -258,7 +253,6 @@ class NewPO extends React.Component{
         console.log(err);
       })
     } else if(vendorId && projectId){
-      console.log("ProjectId is: ", projectId, ". VendorId is: ", vendorId)
       axios.post("/api/dashboard/" + id, { params: {
         poNum: poNum,
         userId: id,
@@ -292,32 +286,40 @@ class NewPO extends React.Component{
         //get all Line Item rows
         let tbl = document.getElementById('litable');
         //get all row data and post to db
-        for (let i = 1; i <3; i++){
-          this.setState({
-            poId: po_id,
-            item: tbl.rows[i].cells[0].children[0].value,
-            details: tbl.rows[i].cells[1].children[0].value,
-            qty: tbl.rows[i].cells[2].children[0].value,
-            price: tbl.rows[i].cells[3].children[0].value,
-            amount: tbl.rows[i].cells[4].children[0].value
-          }, function() {
-            axios.post("api/lineitems", { params: {
-              poId: this.state.poId,
-              item: this.state.item,
-              details: this.state.details,
-              qty: this.state.qty,
-              price: this.state.price,
-              amount: this.state.amount
-            } })
-            .then((response) => {
-              //update count and return to Dashboard
-              console.log(response);
-              this.props.updateCount(this.props.poNum, this.props.userId);
+        for (let i = 1; i <11; i++){
+          let val = tbl.rows[i].cells[0].children[0].value;
+          if (!val){
+            this.props.updateCount(this.props.poNum, this.props.userId);
+            break;
+          } else {
+            this.setState({
+              poId: po_id,
+              item: tbl.rows[i].cells[0].children[0].value,
+              details: tbl.rows[i].cells[1].children[0].value,
+              qty: tbl.rows[i].cells[2].children[0].value,
+              price: tbl.rows[i].cells[3].children[0].value,
+              amount: tbl.rows[i].cells[4].children[0].value
+            }, function() {
+              axios.post("api/lineitems", { params: {
+                poId: this.state.poId,
+                item: this.state.item,
+                details: this.state.details,
+                qty: this.state.qty,
+                price: this.state.price,
+                amount: this.state.amount
+              } })
+              .then((response) => {
+                //update count and return to Dashboard
+                console.log(response);
+                this.props.updateCount(this.props.poNum, this.props.userId);
+              })
+              .catch((err) => {
+                console.log(err);
+              })
             })
-            .catch((err) => {
-              console.log(err);
-            })
-          })
+
+          }
+
         }
       })
       .catch((err) => {
