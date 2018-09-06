@@ -114,32 +114,39 @@ class Dashboard extends React.Component{
         {this.state.view === 'createnew' && <NewPO poNum={this.state.count+1} date={this.state.date} userId={this.props.userId} updateCount={this.updateCount} goBack={this.goBack}/>}
         {this.state.view === 'details' && <ViewPO dets={this.state.dets} lineItems={this.state.lineItems} goBack={this.goBack}/>}
         {this.state.view === 'dashboard' && 
-        <div>
-          <h1> Dashboard </h1> 
-          <button onClick={this.createNewPO}>Create New </button> 
-          <h3> Purchase Orders </h3>
-          <table>
-            <thead>
-              <tr>
-                <th>PO</th>
-                <th>Date</th>
-                <th>Vendor</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.state.pos.map((poObj) =>
-                <tr key={poObj.id} onClick={()=>this.viewDet(poObj.id)}>
-                  {Object.keys(poObj).slice(1).map((item, column) =>{
-                    return <td key = {column}>
-                    {poObj[item]}
-                    </td>
-                  })}
+        
+        <div className="container">
+        {console.log(this.state.pos)}
+          <h3> PURCHASE ORDERS</h3>
+          <div className="po existing">
+            <table className="dashtable">
+              <thead>
+                <tr>
+                  <th className="first"></th>
+                  <th className="po_num">PO</th>
+                  <th className="date_created">Date</th>
+                  <th className="vendor">Vendor</th>
+                  <th className="total">Amount</th>
+                  <th className="last"></th>
                 </tr>
-                )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                  {this.state.pos.map((poObj) =>
+                  <tr className="poDash" key={poObj.id} onClick={()=>this.viewDet(poObj.id)}><td className="first"></td>
+                    {Object.keys(poObj).slice(1).map((item, column) =>{
+                      return <td key={column} className={item}>
+                      {poObj[item]}
+                      </td>
+                    })}
+                    <td className="last"></td>
+                  </tr>
+                  )}
+              </tbody>
+            </table>
+            <button className="createNew" onClick={this.createNewPO}>Create New </button> 
+          </div>
         </div>}
+
       </div>
     )
   }

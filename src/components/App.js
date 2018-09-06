@@ -3,6 +3,7 @@ import Login from './login';
 import SignUp from './signUp';
 import Dashboard from './dashboard';
 import axios from 'axios';
+import '../index.css'
 
 class App extends Component {
   constructor(){
@@ -13,10 +14,11 @@ class App extends Component {
       userId: ''
     }
     this.validateLogin = this.validateLogin.bind(this);
-    this.createUser = this.createUser.bind(this)
+    this.createUser = this.createUser.bind(this);
     this.typeCredentials = this.typeCredentials.bind(this);
-    this.onSubmit = this.onSubmit.bind(this)
-    this.onCreate = this.onCreate.bind(this)
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onCreate = this.onCreate.bind(this);
+    this.signUp = this.signUp.bind(this)
 
   }
 
@@ -46,6 +48,12 @@ class App extends Component {
       .catch((err) => {
         console.log('Failure')
       })
+  }
+
+  signUp() {
+    this.setState({
+      view: 'signup'
+    })
   }
 
   createUser(username, password){
@@ -82,11 +90,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-        <h1 className="App-title">ORDNING</h1>
-        </header>
+        
         <div>
-        {this.state.view === 'login' && <Login validateLogin={this.validateLogin} typeCredentials={this.typeCredentials} onSubmit={this.onSubmit}/> ||
+        {this.state.view === 'login' && <Login validateLogin={this.validateLogin} typeCredentials={this.typeCredentials} onSubmit={this.onSubmit} signUp={this.signUp}/> ||
         this.state.view === 'signup' && <SignUp dupe={this.state.dupe} createUser={this.createUser} typeCredentials={this.typeCredentials} onCreate={this.onCreate}/> || 
         this.state.view === 'dashboard' && <Dashboard user={this.state.company} userId={this.state.userId}/>}
         </div>

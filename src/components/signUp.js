@@ -7,12 +7,18 @@ class SignUp extends React.Component{
 
   render() {
     return (
-      <div> 
-        <h3> Sign Up </h3>
-          {this.props.dupe === 'on' && <div>Username is taken! Choose another!</div> }
-          <input type="text" name="company" placeholder="Organization" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
-          <input type="text" name="password" placeholder="Password" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
-          <button onClick={this.props.onCreate}>Sign Up</button> 
+      <div>
+         <header className="App-header">
+          <h1 className="App-title">SIMPO</h1>
+          <p>purchase orders simplified</p>
+        </header>
+        <div className="credentials sign">  
+          <h3>SIGN UP</h3>
+            {this.props.dupe === 'on' && <div>Username is taken! Choose another!</div> }
+            <input className="cred" type="text" name="company" placeholder="Organization" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
+            <input className="cred" type="text" name="password" placeholder="Password" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
+            <button onClick={this.props.onCreate}>Sign Up</button> 
+        </div>
       </div>
     )
   }

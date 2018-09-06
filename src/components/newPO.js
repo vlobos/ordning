@@ -64,9 +64,9 @@ class NewPO extends React.Component{
             b.innerHTML = "<strong>" + arr[i][1].substring(0, val.length) + "</strong>";
             b.innerHTML += arr[i][1].substring(val.length);
             b.innerHTML += "<input className='hiddenId' type='hidden' id='"+ arr[i][0]+ "' value='" + arr[i][1] + "'>";
-            b.innerHTML += "<input id='addressId' type='hidden' value='" + arr[i][2] + "'>";
-            b.innerHTML += "<input id='phoneId' type='hidden' value='" + arr[i][3] + "'>";
-            b.innerHTML += "<input id='emailId' type='hidden' value='" + arr[i][4] + "'>";
+            b.innerHTML += "<input id='addressId' className='vendorProject' type='hidden' value='" + arr[i][2] + "'>";
+            b.innerHTML += "<input id='phoneId'  className='vendorProject' type='hidden' value='" + arr[i][3] + "'>";
+            b.innerHTML += "<input id='emailId'  className='vendorProject' type='hidden' value='" + arr[i][4] + "'>";
                 b.addEventListener("click", function(e) {
                 inp.value = this.getElementsByTagName("input")[0].value;
                 inp.className = this.getElementsByTagName("input")[0].id;
@@ -364,130 +364,139 @@ class NewPO extends React.Component{
 
   render(){
     return(
-      <div> 
-        <h2> New Purchase Order </h2>
-        Purchase Order: {this.props.poNum}<br/>
-        Date: {this.props.date}<br/>
-        Project: 
-        <form autoComplete="off">
-          <div className="autocomplete" style={{width: "300px"}}>
-            <input id="projInput" type="text" name="Project" placeholder="project" onChange={this.autocompleteProjects}></input>
+      <div className="po"> 
+
+        <div className="baselayer">
+
+          <div className="layer tl"> Purchase Order: {this.props.poNum}</div>
+
+          <div className="layer tr">Date: {this.props.date}</div><br/>
+
+          <div className="layer bl">
+            Vendor:  <form autoComplete="off">
+              <div className="autocomplete">
+                <input id="vendorInput" className="vendorProject"  type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
+              </div>
+            </form>
+            <div>
+              <input id="address" className="vendorProject" type="text" name="address" placeholder="Address" ></input><br/>
+              <input id="email" className="vendorProject" type="text" name="email" placeholder="E-mail" ></input>
+              <input id="phone" className="vendorProject" type="text" name="phone" placeholder="Phone" ></input>
+            </div>
           </div>
-        </form>
-        Vendor: 
-        <form autoComplete="off">
-          <div className="autocomplete" style={{width: "300px"}}>
-            <input id="vendorInput" type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
+
+          <div className="layer br">
+            Ship To: <br/>
+            <input id="shipto" className="vendorProject" type="text" name="ship" placeholder="Address" autoCorrect="off"/>
+            <br/>
+            Project: <form autoComplete="off">
+                <div className="autocomplete">
+                  <input id="projInput" className="vendorProject" type="text" name="Project" placeholder="Project" onChange={this.autocompleteProjects}></input>
+                </div>
+              </form>
           </div>
-        </form>
-        <div>
-          <input id="address" type="text" name="address" placeholder="Address" style={{width:"400px"}}></input><br/>
-          <input id="email" type="text" name="email" placeholder="E-mail" style={{width:"400px"}}></input>
-          <input id="phone" type="text" name="phone" placeholder="Phone" style={{width:"400px"}}></input>
         </div>
-        
-        <br/> 
-        Ship To: <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off" style={{width:"400px"}}/><br/>
-        <table id="litable" cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
+      
+        <table id="litable"  cellSpacing="1" cellPadding="1">
           <thead>
             <tr>
-              <th style={{width:"10%"}}>Item</th>
-              <th style={{width:"50%"}}>Description</th>
-              <th style={{width:"5%"}}>QTY</th>
-              <th style={{width:"7%"}}>Unit Price</th>
-              <th style={{width:"5%"}}>Amount</th>
+              <th className="item">Item</th>
+              <th className="desc">Description</th>
+              <th className="qty">QTY</th>
+              <th className="amount">Unit Price</th>
+              <th className="amount">Amount</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
-              <td><input type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td className="item"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="desc"><input className="tdata" type="text" autoCorrect="off"/></td>
+              <td className="qty"><input className="tdata tdqty" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
+              <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="4" style={{textAlign:"right"}}>Subtotal</td>
-              <td><input id="subtotal" type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td colSpan="4" className="tdtitle" >Subtotal</td>
+              <td className="amount"><input id="subtotal" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="2">Additional Notes</td>
-              <td colSpan="2" style={{textAlign:"right"}}>Tax</td>
-              <td><input id="tax" type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td colSpan="2" className="tdtitlenotes">Additional Notes</td>
+              <td colSpan="2" className="tdtitle">Tax</td>
+              <td className="amount"><input id="tax" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
               <td colSpan="2" rowSpan="3"><textarea id="notes" cols="90" rows="3"></textarea></td>
-              <td colSpan="2" style={{textAlign:"right"}}>Shipping</td>
-              <td><input id="shipcost" type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td colSpan="2" className="tdtitle">Shipping</td>
+              <td><input id="shipcost" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="2" style={{textAlign:"right"}}>Discount</td>
-              <td><input id="discount" type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td colSpan="2" className="tdtitle">Discount</td>
+              <td className="amount"><input id="discount" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="2" style={{textAlign:"right"}}>Total</td>
-              <td><input id="total" type="text" style={{width:"100%"}} autoCorrect="off"/></td>
+              <td colSpan="2" className="tdtitle">Total</td>
+              <td className="amount"><input id="total" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
           </tbody>
         </table>
-        <button onClick={this.props.goBack}>Cancel</button>
-        <button onClick={this.postNewPO}>Save</button>
+        <button className="newPO" onClick={this.props.goBack}>Cancel</button>
+        <button className="newPO" onClick={this.postNewPO}>Save</button>
       </div>
     )
   }

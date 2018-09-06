@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ViewPO = (props) => (
-    <div> 
+    <div className="po"> 
       <h2> Purchase Order: {props.dets.po_num} </h2>
       Date: {props.dets.date_created} <br/>
       Project: {props.dets.project} <br/>
@@ -32,14 +32,14 @@ const ViewPO = (props) => (
         </tbody>
       </table>
     <br/>
-      <table cellSpacing="0" cellPadding="0" style={{width:"800px"}}>
+      <table className="dashtable">
         <thead>
           <tr>
-            <th style={{width:"10%"}}>Item</th>
-            <th style={{width:"50%"}}>Description</th>
-            <th style={{width:"5%"}}>QTY</th>
-            <th style={{width:"7%"}}>Unit Price</th>
-            <th style={{width:"5%"}}>Amount</th>
+            <th className="item">Item</th>
+            <th className="desc">Description</th>
+            <th className="qty">QTY</th>
+            <th className="amount">Unit Price</th>
+            <th className="amount">Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -76,7 +76,7 @@ const ViewPO = (props) => (
           </tr>
         </tbody>
       </table>
-      <button onClick={props.goBack}>Back</button>
+      <button className="newPO"onClick={props.goBack}>Back</button>
     </div>
 )
 

@@ -1,5 +1,376 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  margin: 10px;
+  height: 100%;
+  padding: 10px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  background: #ABD3C5;
+  background: -moz-linear-gradient(top, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
+  background: -webkit-linear-gradient(top, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
+  background: linear-gradient(to bottom, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: rgba(4, 156, 164, 1);
+  /*overscroll-behavior to stop bounce*/
+  overscroll-behavior: none;
 }
+
+
+.App-title {
+  text-align: left;
+  margin-left: 80px;
+  margin-bottom: 0px;
+  padding-bottom: 0x;
+  font-size: 80px;
+  color: rgb(0, 145, 153)
+}
+
+p {
+  margin-top: 0px;
+  margin-left: 200px;
+}
+
+.credentials{
+  background: rgba(253, 216, 83, 0.92);
+  border: 1px solid rgba(255, 199, 46, 1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  height: 350px;
+  padding:10px;
+  width: 300px;
+  text-align: center;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 15px;
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+}
+
+.credentials.sign{
+  height: 280px;
+}
+
+/*Buttons*/
+button {
+  background-color:#E49C3C;
+  border:1px solid #E49C3C;
+  cursor:pointer;
+  color: #9f3a20;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size:19px;
+  text-align: center;
+  width: 240px;
+  text-decoration:none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+
+  -webkit-box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+-moz-box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+}
+
+button.newPO {
+  font-size: 12px;
+  width: 60px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-right: 3px;
+}
+
+button.createNew {
+  font-size: 12px;
+  width: 100px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-right: 3px;
+}
+
+.container {
+  margin: auto;
+  height: 350px;
+  padding:10px;
+  width: auto;
+  text-align: center;
+}
+
+/*New PO Main Frame*/
+.po {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: rgba(253, 216, 83, 0.92);
+  width: 750px;
+  padding: 50px;
+  border: 1px solid rgba(255, 199, 46, 1);
+  border-radius: 10px;
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+}
+
+.existing {
+  padding: 30px;
+}
+
+table.polist {
+  margin: auto
+}
+
+/*PO Details*/
+.baselayer {
+  height: 200px;
+  position: relative;
+  width: 750px;
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.layer {
+  height: 50px;
+  position: absolute;
+  width: 300px;
+}
+.tl {
+  top: 0;
+  left: 0;
+}
+.tr {
+  top: 0;
+  right: 0;
+  text-align: right;
+}
+.br {
+  bottom: 100px;
+  right: -88px;
+  width: 400px
+}
+.bl {
+  bottom: 100px;
+  width: 400px
+}
+
+/* Input fields */
+input.cred {
+  border: 1px solid rgba(255, 199, 46, 1); 
+  border-radius: 10px;
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  color:rgba(4, 156, 164, 1);
+  padding-top: 18px;
+  padding-bottom: 18px;
+  width: 240px;
+  background: rgba(255,255,255,0.5);
+  margin: 0 0 10px 0;
+  font-size:12px;
+  text-align: center; 
+}
+
+input.cred::placeholder, input.vendorProject::placeholder, input#vendorInput::placeholder, input#projInput::placeholder {
+  color: rgba(4, 156, 164, .50);
+}
+
+input.vendorProject, input#vendorInput, input#projInput {
+  border: 1px solid rgba(255, 199, 46, 1); 
+  border-radius: 5px;
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  color: rgba(4, 156, 164, 1);
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  width: 300px;
+  background: rgba(255,255,255,0.5);
+  margin: 0 0 3px 0;
+  font-size:12px;
+  text-align: left; 
+}
+
+/*PO LI Input Table*/
+
+input.tdata {
+  border: 1px solid rgba(255, 199, 46, 1); 
+  color: rgba(4, 156, 164, 1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(255,255,255,0.5);
+  margin: 0;
+  width: 100%;
+  font-size:12px;
+  text-align: left; 
+  border-radius: 5px;
+}
+
+input.tdqty {
+  text-align: center;
+}
+
+input.tdamount {
+  text-align: right;
+}
+
+td.item {
+  width: 18%
+}
+td.desc {
+  width: 60%
+}
+td.qty {
+  width: 2%
+}
+
+td.amount {
+  width: 10%
+}
+
+th.item {
+  width: 18%
+}
+th.desc {
+  width: 60%
+}
+th.qty {
+  width: 2%
+}
+th.price {
+  width: 10%
+}
+th.amount {
+  width: 10%
+}
+
+textarea {
+  border: 1px solid rgba(255, 199, 46, 1); 
+  color: rgba(4, 156, 164, 1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(255,255,255,0.5);
+  margin: auto;
+  width: 100%;
+  font-size:12px;
+  text-align: left; 
+  border-radius: 5px;
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1);
+}
+
+.tdtitle {
+  text-align: right;
+}
+
+.tdtitlenotes {
+  text-align: center;
+}
+
+/*Dashboard Table*/
+
+table.dashtable {
+  width: 700px;
+  position: relative;
+  margin: auto;
+  border-collapse:separate; 
+  border-spacing: 0 1px;
+  border-radius: 5px
+}
+
+/*Dashboard Table cells*/
+
+tr.poDash {
+  background: rgba(255,255,255,0.5);
+}
+
+td.po_num {
+  text-align: center;
+}
+
+.date_created {
+  text-align: center;
+}
+
+.vendor {
+  text-align: left;
+}
+
+td.total {
+  text-align: right;
+}
+th.po_num {
+  width: 40px;
+  text-align: center;
+}
+
+th.date_created {
+  width: 100px;
+  text-align: center;
+}
+
+th.vendor {
+  width: 200px;
+  text-align: center;
+}
+
+th.total {
+  width: 80px;
+  text-align: center;
+}
+
+th.first {
+  width:10px
+}
+th.last {
+  width:30px
+}
+td.first {
+  
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+td.last {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
