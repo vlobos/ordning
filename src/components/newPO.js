@@ -333,10 +333,10 @@ class NewPO extends React.Component{
     let poNum = this.props.poNum;
     //for Project
     let projectName = document.getElementById('projInput').value;
-    let projectId = document.getElementById('projInput').className || null
+    let projectId = document.getElementById('projInput').className
     //for Vendor
     let vendorName = document.getElementById('vendorInput').value;
-    let vendorId = document.getElementById('vendorInput').className || null
+    let vendorId = document.getElementById('vendorInput').className
     let vendorAdd = document.getElementById('address').value;
     let phone = document.getElementById('phone').value;
     let email = document.getElementById('email').value;
@@ -375,23 +375,23 @@ class NewPO extends React.Component{
           <div className="layer bl">
             Vendor:  <form autoComplete="off">
               <div className="autocomplete">
-                <input id="vendorInput" className="vendorProject"  type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
+                <input id="vendorInput"  type="text" name="vendor" placeholder="Vendor" onChange={this.autocompleteVendors}></input>
               </div>
             </form>
             <div>
-              <input id="address" className="vendorProject" type="text" name="address" placeholder="Address" ></input><br/>
-              <input id="email" className="vendorProject" type="text" name="email" placeholder="E-mail" ></input>
-              <input id="phone" className="vendorProject" type="text" name="phone" placeholder="Phone" ></input>
+              <input id="address" type="text" name="address" placeholder="Address" ></input><br/>
+              <input id="email" type="text" name="email" placeholder="E-mail" ></input>
+              <input id="phone" type="text" name="phone" placeholder="Phone" ></input>
             </div>
           </div>
 
           <div className="layer br">
             Ship To: <br/>
-            <input id="shipto" className="vendorProject" type="text" name="ship" placeholder="Address" autoCorrect="off"/>
+            <input id="shipto" type="text" name="ship" placeholder="Address" autoCorrect="off"/>
             <br/>
             Project: <form autoComplete="off">
                 <div className="autocomplete">
-                  <input id="projInput" className="vendorProject" type="text" name="Project" placeholder="Project" onChange={this.autocompleteProjects}></input>
+                  <input id="projInput" type="text" name="Project" placeholder="Project" onChange={this.autocompleteProjects}></input>
                 </div>
               </form>
           </div>

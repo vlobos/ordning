@@ -2,7 +2,7 @@ body {
   margin: 10px;
   height: 100%;
   padding: 10px;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   font-size: 14px;
   background: #ABD3C5;
   background: -moz-linear-gradient(top, rgba(171, 211, 197, .10) 5%, rgba(108, 185, 208, .20) 50%, rgba(63, 180, 226, .50) 100%);
@@ -202,11 +202,11 @@ input.cred {
   text-align: center; 
 }
 
-input.cred::placeholder, input.vendorProject::placeholder, input#vendorInput::placeholder, input#projInput::placeholder {
+input.cred::placeholder, input#address::placeholder, input#email::placeholder, input#phone::placeholder,input#shipto::placeholder,input#vendorInput::placeholder, input#projInput::placeholder {
   color: rgba(4, 156, 164, .50);
 }
 
-input.vendorProject, input#vendorInput, input#projInput {
+input.vendorProject, input#vendorInput, input#projInput, input#address, input#email, input#phone,input#shipto {
   border: 1px solid rgba(255, 199, 46, .40); 
   border-radius: 5px;
   -webkit-box-shadow: 

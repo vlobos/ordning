@@ -54,7 +54,6 @@ const ViewPO = (props) => (
           
               {Object.keys(itemObj).map((col, i) => {
                 return <td key={i} className={col}>
-                {console.log(col)}
                   {itemObj[col]}
                 </td>
               })}
