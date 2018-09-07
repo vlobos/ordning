@@ -51,6 +51,7 @@ const ViewPO = (props) => (
         <tbody>
           {props.lineItems.map((itemObj, i) =>
           <tr className="poDash" key={i}>
+          
               {Object.keys(itemObj).map((col, i) => {
                 return <td key={i} className={col}>
                 {console.log(col)}

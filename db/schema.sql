@@ -1,8 +1,8 @@
 /*Create database and define tables*/
 
-CREATE DATABASE ordning;
+CREATE DATABASE simpo;
 
-USE ordning;
+USE simpo;
 
 CREATE TABLE usernames(
     id INT(6) auto_increment,

@@ -332,11 +332,11 @@ td.po_num {
   text-align: center;
 }
 
-td.date_created {
+.date_created {
   text-align: center;
 }
 
-td.vendor {
+.vendor {
   text-align: left;
 }
 
@@ -392,15 +392,6 @@ td.poDet {
   background: rgba(255,255,255,0.5);
   border: 1px solid rgba(255, 199, 46, 1); 
   border-radius: 5px;
-  -webkit-box-shadow: 
-  inset 0 0 8px  rgba(0,0,0,0.1),
-        0 0 16px rgba(0,0,0,0.1); 
--moz-box-shadow: 
-  inset 0 0 8px  rgba(0,0,0,0.1),
-        0 0 16px rgba(0,0,0,0.1); 
-box-shadow: 
-  inset 0 0 8px  rgba(0,0,0,0.1),
-        0 0 16px rgba(0,0,0,0.1);
 }
 
 th.viewdet {
