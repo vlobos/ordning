@@ -3,13 +3,14 @@ body {
   height: 100%;
   padding: 10px;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 14px;
   background: #ABD3C5;
-  background: -moz-linear-gradient(top, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
-  background: -webkit-linear-gradient(top, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
-  background: linear-gradient(to bottom, #ABD3C5 10%, #6DBAD1 96%, #3FB4E2 100%);
+  background: -moz-linear-gradient(top, rgba(171, 211, 197, .10) 5%, rgba(108, 185, 208, .20) 50%, rgba(63, 180, 226, .50) 100%);
+  background: -webkit-linear-gradient(top, rgba(171, 211, 197, .10) 5%, rgba(108, 185, 208, .20) 50%, rgba(63, 180, 226, .50) 100%);
+  background: linear-gradient(to bottom, rgba(171, 211, 197, .10) 5%, rgba(108, 185, 208, .20) 50%, rgba(63, 180, 226, .50) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: rgba(4, 156, 164, 1);
+  color: rgb(49, 170, 218);
   /*overscroll-behavior to stop bounce*/
   overscroll-behavior: none;
 }
@@ -21,7 +22,7 @@ body {
   margin-bottom: 0px;
   padding-bottom: 0x;
   font-size: 80px;
-  color: rgb(0, 145, 153)
+  color:  rgb(49, 170, 218);
 }
 
 p {
@@ -30,8 +31,8 @@ p {
 }
 
 .credentials{
-  background: rgba(253, 216, 83, 0.92);
-  border: 1px solid rgba(255, 199, 46, 1);
+  background: rgba(254, 230, 114, .9);
+  border: 1px solid rgba(255, 199, 46, .40);
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
@@ -59,10 +60,10 @@ p {
 
 /*Buttons*/
 button {
-  background-color:#E49C3C;
-  border:1px solid #E49C3C;
+  background-color:rgba(228, 156, 60, .5);
+  border:1px solid rgba(228, 156, 60, .5);
   cursor:pointer;
-  color: #9f3a20;
+  color: rgba(159, 58, 32, .55);
   font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size:19px;
   text-align: center;
@@ -115,10 +116,10 @@ button.createNew {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  background: rgba(253, 216, 83, 0.92);
+  background: rgba(254, 230, 114, .9);
   width: 750px;
   padding: 50px;
-  border: 1px solid rgba(255, 199, 46, 1);
+  border: 1px solid rgba(255, 199, 46, .40);
   border-radius: 10px;
   -webkit-box-shadow: 
     inset 0 0 8px  rgba(0,0,0,0.1),
@@ -174,8 +175,13 @@ table.polist {
 }
 
 /* Input fields */
+
+input {
+  outline: none;
+}
+
 input.cred {
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   border-radius: 10px;
   -webkit-box-shadow: 
     inset 0 0 8px  rgba(0,0,0,0.1),
@@ -201,7 +207,7 @@ input.cred::placeholder, input.vendorProject::placeholder, input#vendorInput::pl
 }
 
 input.vendorProject, input#vendorInput, input#projInput {
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   border-radius: 5px;
   -webkit-box-shadow: 
     inset 0 0 8px  rgba(0,0,0,0.1),
@@ -226,7 +232,7 @@ input.vendorProject, input#vendorInput, input#projInput {
 /*PO LI Input Table*/
 
 input.tdata {
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   color: rgba(4, 156, 164, 1);
   padding-top: 5px;
   padding-bottom: 5px;
@@ -283,7 +289,7 @@ th.amount {
 }
 
 .textarea {
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   color: rgba(4, 156, 164, 1);
   background: rgba(255,255,255,0.5);
   margin: auto;
@@ -390,7 +396,7 @@ td.last {
 
 td.poDet {
   background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   border-radius: 5px;
 }
 
@@ -403,7 +409,7 @@ th.filler {
 }
 
 td.moneyvalues {
-  border: 1px solid rgba(255, 199, 46, 1); 
+  border: 1px solid rgba(255, 199, 46, .40); 
   color: rgba(4, 156, 164, 1);
   padding-top: 5px;
   padding-bottom: 5px;
