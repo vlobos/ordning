@@ -154,14 +154,15 @@ table.polist {
   width: 300px;
 }
 .tl {
-  top: 0;
+  top: -20px;
   left: 0;
 }
 .tr {
-  top: 0;
+  top: -20px;
   right: 0;
   text-align: right;
 }
+
 .br {
   bottom: 100px;
   right: -88px;
@@ -252,11 +253,17 @@ td.desc {
   width: 60%
 }
 td.qty {
-  width: 2%
+  width: 2%;
+  text-align: center;
+}
+
+td.unit_price{
+  text-align: right;
 }
 
 td.amount {
-  width: 10%
+  width: 10%;
+  text-align: right;
 }
 
 th.item {
@@ -275,13 +282,12 @@ th.amount {
   width: 10%
 }
 
-textarea {
+.textarea {
   border: 1px solid rgba(255, 199, 46, 1); 
   color: rgba(4, 156, 164, 1);
-  padding-top: 5px;
-  padding-bottom: 5px;
   background: rgba(255,255,255,0.5);
   margin: auto;
+  vertical-align: top;
   width: 100%;
   font-size:12px;
   text-align: left; 
@@ -305,7 +311,7 @@ textarea {
   text-align: center;
 }
 
-/*Dashboard Table*/
+/*Dashboard and ViewPO Table*/
 
 table.dashtable {
   width: 700px;
@@ -326,11 +332,11 @@ td.po_num {
   text-align: center;
 }
 
-.date_created {
+td.date_created {
   text-align: center;
 }
 
-.vendor {
+td.vendor {
   text-align: left;
 }
 
@@ -364,7 +370,6 @@ th.last {
   width:30px
 }
 td.first {
-  
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -372,5 +377,51 @@ td.last {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+
+/*ViewPO table*/
+
+.tb {
+  margin-left: auto;
+  margin-right: auto;
+  top:50px;
+  bottom: 100px;
+  width: 750px
+}
+
+td.poDet {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 199, 46, 1); 
+  border-radius: 5px;
+  -webkit-box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+-moz-box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1); 
+box-shadow: 
+  inset 0 0 8px  rgba(0,0,0,0.1),
+        0 0 16px rgba(0,0,0,0.1);
+}
+
+th.viewdet {
+  text-align: left;
+  width: 45%;
+}
+th.filler {
+  width: 10%
+}
+
+td.moneyvalues {
+  border: 1px solid rgba(255, 199, 46, 1); 
+  color: rgba(4, 156, 164, 1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: rgba(255,255,255,0.5);
+  margin: 0;
+  width: 100%;
+  font-size:12px;
+  text-align: right; 
+  border-radius: 5px;
+} 
 
 

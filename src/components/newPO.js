@@ -368,9 +368,9 @@ class NewPO extends React.Component{
 
         <div className="baselayer">
 
-          <div className="layer tl"> Purchase Order: {this.props.poNum}</div>
+          <div className="layer tl"><h2>Purchase Order: {this.props.poNum}</h2></div>
 
-          <div className="layer tr">Date: {this.props.date}</div><br/>
+          <div className="layer tr"><h2>Date: {this.props.date}</h2></div><br/>
 
           <div className="layer bl">
             Vendor:  <form autoComplete="off">
@@ -472,7 +472,7 @@ class NewPO extends React.Component{
               <td className="amount"><input className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="4" className="tdtitle" >Subtotal</td>
+              <td colSpan="4" className="tdtitle">Subtotal</td>
               <td className="amount"><input id="subtotal" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
@@ -481,7 +481,7 @@ class NewPO extends React.Component{
               <td className="amount"><input id="tax" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>
             <tr>
-              <td colSpan="2" rowSpan="3"><textarea id="notes" cols="90" rows="3"></textarea></td>
+              <td colSpan="2" rowSpan="3"><textarea id="notes" cols="90" rows="3" className="textarea"></textarea></td>
               <td colSpan="2" className="tdtitle">Shipping</td>
               <td><input id="shipcost" className="tdata tdamount" type="text" autoCorrect="off"/></td>
             </tr>

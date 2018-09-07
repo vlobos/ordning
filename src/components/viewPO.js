@@ -2,77 +2,85 @@ import React from 'react';
 
 const ViewPO = (props) => (
     <div className="po"> 
-      <h2> Purchase Order: {props.dets.po_num} </h2>
-      Date: {props.dets.date_created} <br/>
-      Project: {props.dets.project} <br/>
-      <table>
-        <thead>
-          <tr>
-            <th>Vendor</th>
-            <th>Ship To:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{props.dets.vendor}</td>
-            <td>Recepient at</td>
-          </tr>
-          <tr>
-            <td>{props.dets.vendor_address}</td>
-            <td>{props.dets.ship_to}</td>
-          </tr>
-          <tr>
-            <td>{props.dets.email}</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>{props.dets.phone}</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="baselayer">
+        <div className="layer tl"><h2>Purchase Order: {props.dets.po_num}</h2></div>
+        <div className="layer tr"><h2>Date: {props.dets.date_created}</h2></div>
+        <table className="layer tb">
+          <tbody>
+            <tr>
+              <th className="viewdet">Vendor</th>
+              <th className="filler"></th>
+              <th className="viewdet">Ship To</th>
+            </tr>
+            <tr>
+              <td className="poDet">{props.dets.vendor}</td>
+              <td></td>
+              <td className="poDet">{props.dets.ship_to}</td>
+            </tr>
+            <tr>
+              <td className="poDet">{props.dets.vendor_address}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td className="poDet">{props.dets.email}</td>
+              <td></td>
+              <th className="viewdet">Project</th>
+            </tr>
+            <tr>
+              <td className="poDet">{props.dets.phone}</td>
+              <td></td>
+              <td className="poDet">{props.dets.project}</td>
+            </tr>
+          </tbody>
+        </table> 
+      </div>
     <br/>
       <table className="dashtable">
         <thead>
           <tr>
+            
             <th className="item">Item</th>
             <th className="desc">Description</th>
             <th className="qty">QTY</th>
             <th className="amount">Unit Price</th>
             <th className="amount">Amount</th>
+            
           </tr>
         </thead>
         <tbody>
           {props.lineItems.map((itemObj, i) =>
-          <tr key={i}>
-            {Object.keys(itemObj).map((col, i) => {
-              return <td key={i}>
-                {itemObj[col]}
-              </td>
-            })}
+          <tr className="poDash" key={i}>
+              {Object.keys(itemObj).map((col, i) => {
+                return <td key={i} className={col}>
+                {console.log(col)}
+                  {itemObj[col]}
+                </td>
+              })}
+            
           </tr>
           )}
           <tr>
-            <td colSpan="4" style={{textAlign:"right"}}>Subtotal</td>
-            <td>{props.dets.sub}</td>
+            <td colSpan="4" className="tdtitle">Subtotal</td>
+            <td className="moneyvalues">{props.dets.sub}</td>
           </tr>
           <tr>
-            <td colSpan="2">Additional Notes</td>
-            <td colSpan="2" style={{textAlign:"right"}}>Tax</td>
-            <td>{props.dets.tax}</td>
+            <td colSpan="2" className="tdtitlenotes">Additional Notes</td>
+            <td colSpan="2" className="tdtitle">Tax</td>
+            <td className="moneyvalues">{props.dets.tax}</td>
           </tr>
           <tr>
-            <td colSpan="2" rowSpan="3">{props.dets.notes}</td>
-            <td colSpan="2" style={{textAlign:"right"}}>Shipping</td>
-            <td>{props.dets.shipping_cost}</td>
+            <td colSpan="2" rowSpan="3" className="textarea">{props.dets.notes}</td>
+            <td colSpan="2" className="tdtitle">Shipping</td>
+            <td className="moneyvalues">{props.dets.shipping_cost}</td>
           </tr>
           <tr>
-            <td colSpan="2" style={{textAlign:"right"}}>Discount</td>
-            <td>{props.dets.discount}</td>
+            <td colSpan="2" className="tdtitle">Discount</td>
+            <td className="moneyvalues">{props.dets.discount}</td>
           </tr>
           <tr>
-            <td colSpan="2" style={{textAlign:"right"}}>Total</td>
-            <td>{props.dets.total}</td>
+            <td colSpan="2" className="tdtitle">Total</td>
+            <td className="moneyvalues">{props.dets.total}</td>
           </tr>
         </tbody>
       </table>

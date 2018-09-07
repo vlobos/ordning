@@ -116,7 +116,6 @@ class Dashboard extends React.Component{
         {this.state.view === 'dashboard' && 
         
         <div className="container">
-        {console.log(this.state.pos)}
           <h3> PURCHASE ORDERS</h3>
           <div className="po existing">
             <table className="dashtable">
@@ -132,12 +131,13 @@ class Dashboard extends React.Component{
               </thead>
               <tbody>
                   {this.state.pos.map((poObj) =>
-                  <tr className="poDash" key={poObj.id} onClick={()=>this.viewDet(poObj.id)}><td className="first"></td>
-                    {Object.keys(poObj).slice(1).map((item, column) =>{
-                      return <td key={column} className={item}>
-                      {poObj[item]}
-                      </td>
-                    })}
+                  <tr className="poDash" key={poObj.id} onClick={()=>this.viewDet(poObj.id)}>
+                    <td className="first"></td>
+                      {Object.keys(poObj).slice(1).map((item, column) =>{
+                        return <td key={column} className={item}>
+                        {poObj[item]}
+                        </td>
+                      })}
                     <td className="last"></td>
                   </tr>
                   )}
