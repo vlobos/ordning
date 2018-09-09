@@ -1,14 +1,31 @@
-const mod = require('../models/models')
+const mod = require('../models/models');
+const bcrypt = require('bcrypt');
+const salt = 10;
 
 const login = {
     get: function(req, res){
         let username = req.params.username;
         let password = req.query.pass;
-        mod.userLogin.get(username, password, function(err, results){
+        mod.userLogin.get(username, function(err, results){
             if (err){ 
-                throw err;
+              throw err;
             } else {
+              if (results.length === 0) {
                 res.send(results)
+              } else {
+                let hash = results[0].pass
+                bcrypt.compare(password, hash, function(err, dbPass) {
+                  if (err) {
+                    throw err;
+                  } else {
+                    if(dbPass === false) {
+                      res.status(200).send("Invalid Password");
+                      } else {
+                        res.status(200).send(results)
+                      }
+                    }
+                })
+              }
             }
         })
     }
@@ -21,19 +38,21 @@ const signup = {
             if (err){
                 throw err;
             } else {
-                res.send(results)
+              res.send(results)
             }
         })
     },
     post: function(req, res){
-        let username = req.query.username;
-        let password = req.query.pass;
-        mod.userSignup.post(username, password, function(err, results){
-            if (err){
-                throw err;
-            } else {
-                res.send('Success!')
-            }
+        let username = req.body.params.username;
+        let password = req.body.params.pass;
+        bcrypt.hash(password, salt, function(err, hash) {
+          mod.userSignup.post(username, hash, function(err, results){
+              if (err){
+                  throw err;
+              } else {
+                  res.send('Success!')
+              }
+          })
         })
     }
 }

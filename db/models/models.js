@@ -1,9 +1,9 @@
 const db = require('../config');
 
 const userLogin = {
-  get: function(username, password, callback){
-      let query = 'select id, username, pass from usernames where username = ? and pass = ?';
-      db.query(query, [username, password], function(err, results){
+  get: function(username, callback){
+      let query = 'select id, username, pass from usernames where username = ?';
+      db.query(query, [username], function(err, results){
           if (err) throw err;
           callback(err,results)
       })

@@ -33,7 +33,14 @@ class App extends Component {
       pass: password
     }})
       .then((res) => {
-        if (res.data.length === 0){
+        if (res.data === "Invalid Password") {
+          this.setState({
+            view: 'login'
+          }, function() {
+            document.getElementsByClassName('cred')[0].value = ""
+            document.getElementsByClassName('cred')[1].value = ""
+          })
+        } else if (res.data.length === 0){
           this.setState({
             view: 'signup'
           })
@@ -46,7 +53,7 @@ class App extends Component {
         }
       })
       .catch((err) => {
-        console.log('Failure')
+        throw err
       })
   }
 
@@ -57,20 +64,26 @@ class App extends Component {
   }
 
   createUser(username, password){
-    //check if username is available
-    //if available, post
-    //set state to login
-    //if not sign up again
-    if (username === 'Cole'){
+    axios.post("api/signup", { params: {
+      username: username,
+      pass: password
+    }})
+    .then((results)=> {
       this.setState({
         view: 'login'
       })
-    } else if (username === 'Sury'){
-      this.setState({
-        view: 'signup',
-        dupe: 'on'
-      })
-    }
+    })
+    .catch((err)=> {
+      if(err.response.status === 500){
+        this.setState({
+          view: 'signup',
+          dupe: 'on'
+        }, function() {
+          document.getElementsByClassName('cred')[0].value = ""
+          document.getElementsByClassName('cred')[1].value = ""
+        })
+      }
+    })
   }
 
   typeCredentials(e) {

@@ -15,7 +15,7 @@ class SignUp extends React.Component{
         <div className="credentials sign">  
           <h3>SIGN UP</h3>
             {this.props.dupe === 'on' && <div>Username is taken! Choose another!</div> }
-            <input className="cred" type="text" name="company" placeholder="Organization" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
+            <input id="testid" className="cred" type="text" name="company" placeholder="Organization" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
             <input className="cred" type="password" name="password" placeholder="Password" autoComplete="off" onChange={this.props.typeCredentials}/><br/>
             <button onClick={this.props.onCreate}>Sign Up</button> 
         </div>
@@ -25,5 +25,3 @@ class SignUp extends React.Component{
 }
 
 export default SignUp;
-
-//on sign up you need to make sure Organization name is unique. if it is, create new user with org name and password

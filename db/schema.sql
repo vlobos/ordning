@@ -7,7 +7,7 @@ USE simpo;
 CREATE TABLE usernames(
     id INT(6) auto_increment,
     username VARCHAR(30),
-    pass VARCHAR(10),
+    pass VARCHAR(100),
     PRIMARY KEY (id),
     UNIQUE(username)
 );
