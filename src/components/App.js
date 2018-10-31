@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   validateLogin(username, password){
+    console.log("HEYLL")
     axios.get('/api/login/'+ username, { params: {
       pass: password
     }})

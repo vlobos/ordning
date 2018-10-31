@@ -4,6 +4,7 @@ const salt = 10;
 
 const login = {
     get: function(req, res){
+      console.log("COntrollerjs")
         let username = req.params.username;
         let password = req.query.pass;
         mod.userLogin.get(username, function(err, results){
@@ -168,33 +169,50 @@ const orderId = {
 }
 
 const items = {
-    get: function(req, res){
-        let poId = req.query.poId;
-        mod.lineItems.get(poId, function(err, results){
-            if (err){
-                throw err;
-            } else {
-                res.send(results)
-            }
-        })
-    },
-    post: function(req, res){
-        let poId = req.body.params.poId;
-        let item = req.body.params.item;
-        let details = req.body.params.details;
-        let qty = req.body.params.qty;
-        let price = req.body.params.price;
-        let amount = req.body.params.amount;
-        mod.lineItems.post(poId, item, details, qty, price, amount, function(err, results){
-            if (err){
-                throw err;
-            } else {
-                res.send('Success!')
-            }
-        })
-    }
+  get: function(req, res){
+      let poId = req.query.poId;
+      mod.lineItems.get(poId, function(err, results){
+          if (err){
+              throw err;
+          } else {
+              res.send(results)
+          }
+      })
+  },
+  post: function(req, res){
+      let poId = req.body.params.poId;
+      let item = req.body.params.item;
+      let details = req.body.params.details;
+      let qty = req.body.params.qty;
+      let price = req.body.params.price;
+      let amount = req.body.params.amount;
+      mod.lineItems.post(poId, item, details, qty, price, amount, function(err, results){
+          if (err){
+              throw err;
+          } else {
+              res.send('Success!')
+          }
+      })
+  }
+}
+
+const search = {
+  get: function(req,res){
+    let poNumSearch= req.params.poNumSearch;
+    let vendorSearch = req.params.vendorSearch;
+    let startDate = req.params.startDate;
+    let endDate = req.params.endDate;
+
+    mod.search.get(poNumSearch, vendorSearch, startDate, endDate, function(err,results){
+      if(err){
+        throw err;
+      } else {
+        res.send(results)
+      }
+    })
+  }
 }
 
 module.exports = {
-    login, signup, vendors, projects, orders, items, orderDets, orderId
+    login, signup, vendors, projects, orders, items, orderDets, orderId, search
 }

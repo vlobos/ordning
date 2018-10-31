@@ -1,6 +1,7 @@
 import React from 'react';
 import ViewPO from './viewPO';
 import NewPO from './newPO';
+import Search from './search'
 import axios from 'axios';
 
 class Dashboard extends React.Component{
@@ -117,6 +118,7 @@ class Dashboard extends React.Component{
         
         <div className="container">
           <h3> PURCHASE ORDERS</h3>
+          <Search userId={this.props.userId}></Search>
           <div className="po existing">
             <table className="dashtable">
               <thead>

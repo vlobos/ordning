@@ -30,6 +30,9 @@ router.route('/lineitems')
 router.route('/po/:poId')
   .get(ctrl.orderDets.get)
 
+router.route('/searchPo')
+  .get(ctrl.search.get)
+
 module.exports.router = router
 
 

@@ -96,7 +96,7 @@ const orderId = {
       callback(err, results);
     })
   }
-}
+};
 
 const lineItems = {
   get: function(poId, callback){
@@ -115,6 +115,17 @@ const lineItems = {
   }
 };
 
+const search = {
+  get: function(poNumSearch, vendorSearch, startDate, endDate, callback){
+    console.log("Model: ",poNumSearch, vendorSearch, startDate, endDate)
+    let query = 'select po_num from purchase_orders where po_num=?';
+      db.query(query, [poNumSearch], function(err, results){
+        if(err) throw err;
+        callback(err,results);
+    }) 
+  }
+};
+
 module.exports = {
-    userLogin, userSignup, vendors, projects, orders, lineItems, orderId, orderDets
+    userLogin, userSignup, vendors, projects, orders, lineItems, orderId, orderDets, search
 }
