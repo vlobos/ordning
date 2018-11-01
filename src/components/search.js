@@ -23,6 +23,7 @@ class Search extends React.Component {
     let vendorList = [];
     axios.get("/api/vendors", { params: {userId: id} })
     .then((ven) => {
+      console.log(ven, "Axios")
       let vendors= ven.data;
       vendors.forEach((vendor)=>{
         vendorList.push([vendor.vendor])
@@ -115,8 +116,9 @@ search(poNumSearch,vendorSearch,startDate,endDate){
     vendorSearch: vendorSearch,
     startDate: startDate,
     endDate: endDate
-  } }).then((posReturned)=>{
-    console.log(posReturned)
+  } })
+  .then((posReturned)=>{
+    console.log("posReturned: ",posReturned)
     this.setState({
       foundPOs: posReturned
     })
@@ -129,22 +131,16 @@ search(poNumSearch,vendorSearch,startDate,endDate){
 };
 
 searchPO(){
-//get input values
-//make axios call
-let poNumSearch = document.getElementById("poSearch").value;
-let vendorSearch = document.getElementById("vendorSearch").value;
-let startDate = document.getElementById("startDate").value;
-let endDate = document.getElementById("endDate").value;
-this.setState({
-  search: "on"
-}, function(){
+  let poNumSearch = document.getElementById("poSearch").value;
+  let vendorSearch = document.getElementById("vendorSearch").value;
+  let startDate = document.getElementById("startDate").value;
+  let endDate = document.getElementById("endDate").value;
+
   if(!startDate || !endDate){
     console.log("INSERT DATES")
   }else{
     this.search(poNumSearch,vendorSearch,startDate,endDate);
   }
-})
-
 }
 
   render (){

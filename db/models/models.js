@@ -117,7 +117,6 @@ const lineItems = {
 
 const search = {
   get: function(poNumSearch, vendorSearch, startDate, endDate, callback){
-    console.log("Model: ",poNumSearch, vendorSearch, startDate, endDate)
     let query = 'select po_num from purchase_orders where po_num=?';
       db.query(query, [poNumSearch], function(err, results){
         if(err) throw err;

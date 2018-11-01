@@ -4,7 +4,6 @@ const salt = 10;
 
 const login = {
     get: function(req, res){
-      console.log("COntrollerjs")
         let username = req.params.username;
         let password = req.query.pass;
         mod.userLogin.get(username, function(err, results){
@@ -198,10 +197,10 @@ const items = {
 
 const search = {
   get: function(req,res){
-    let poNumSearch= req.params.poNumSearch;
-    let vendorSearch = req.params.vendorSearch;
-    let startDate = req.params.startDate;
-    let endDate = req.params.endDate;
+    let poNumSearch= req.query.poNumSearch;
+    let vendorSearch = req.query.vendorSearch;
+    let startDate = req.query.startDate;
+    let endDate = req.query.endDate;
 
     mod.search.get(poNumSearch, vendorSearch, startDate, endDate, function(err,results){
       if(err){
