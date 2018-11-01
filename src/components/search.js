@@ -109,16 +109,15 @@ autocompleteVendors(e){
   this.autocomplete(inp, this.state.vendorList)
 };
 
-search(poNumSearch,vendorSearch,startDate,endDate){
-  console.log("Search: ", poNumSearch,vendorSearch,startDate,endDate)
+search(userId,poNumSearch,vendorSearch,startDate,endDate){
   axios.get("/api/searchPo", { params: {
+    userId: userId,
     poNumSearch: poNumSearch,
     vendorSearch: vendorSearch,
     startDate: startDate,
     endDate: endDate
   } })
   .then((posReturned)=>{
-    console.log("posReturned: ",posReturned)
     this.setState({
       foundPOs: posReturned
     })
@@ -139,7 +138,7 @@ searchPO(){
   if(!startDate || !endDate){
     console.log("INSERT DATES")
   }else{
-    this.search(poNumSearch,vendorSearch,startDate,endDate);
+    this.search(this.props.userId,poNumSearch,vendorSearch,startDate,endDate);
   }
 }
 

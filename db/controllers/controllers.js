@@ -197,12 +197,13 @@ const items = {
 
 const search = {
   get: function(req,res){
-    let poNumSearch= req.query.poNumSearch;
+    let userId = req.query.userId;
+    let poNumSearch = req.query.poNumSearch;
     let vendorSearch = req.query.vendorSearch;
     let startDate = req.query.startDate;
     let endDate = req.query.endDate;
 
-    mod.search.get(poNumSearch, vendorSearch, startDate, endDate, function(err,results){
+    mod.search.get(userId, poNumSearch, vendorSearch, startDate, endDate, function(err,results){
       if(err){
         throw err;
       } else {
