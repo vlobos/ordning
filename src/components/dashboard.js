@@ -118,7 +118,7 @@ class Dashboard extends React.Component{
         
         <div className="container">
           <h3> PURCHASE ORDERS</h3>
-          <Search userId={this.props.userId}></Search>
+          <Search userId={this.props.userId} purchaseOrders={this.state.pos}></Search>
           <div className="po existing">
             <table className="dashtable">
               <thead>

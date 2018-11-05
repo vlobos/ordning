@@ -7,7 +7,7 @@ class Search extends React.Component {
     this.state={
       vendorList: '',
       search: 'off',
-      foundPOs: ''
+      foundPOs: []
     }
     this.autocompleteVendors=this.autocompleteVendors.bind(this)
     this.searchPO=this.searchPO.bind(this)
@@ -23,7 +23,6 @@ class Search extends React.Component {
     let vendorList = [];
     axios.get("/api/vendors", { params: {userId: id} })
     .then((ven) => {
-      console.log(ven, "Axios")
       let vendors= ven.data;
       vendors.forEach((vendor)=>{
         vendorList.push([vendor.vendor])
@@ -109,36 +108,64 @@ autocompleteVendors(e){
   this.autocomplete(inp, this.state.vendorList)
 };
 
-search(userId,poNumSearch,vendorSearch,startDate,endDate){
-  axios.get("/api/searchPo", { params: {
-    userId: userId,
-    poNumSearch: poNumSearch,
-    vendorSearch: vendorSearch,
-    startDate: startDate,
-    endDate: endDate
-  } })
-  .then((posReturned)=>{
-    this.setState({
-      foundPOs: posReturned
-    })
-  })
-  .catch((err)=>{
-    if (err){
-      console.log(err)
-    }
-  })
-};
-
 searchPO(){
   let poNumSearch = document.getElementById("poSearch").value;
   let vendorSearch = document.getElementById("vendorSearch").value;
   let startDate = document.getElementById("startDate").value;
   let endDate = document.getElementById("endDate").value;
-
-  if(!startDate || !endDate){
-    console.log("INSERT DATES")
+  if(!startDate && endDate || startDate && !endDate){
+    console.log("INSERT BOTH DATES")
   }else{
-    this.search(this.props.userId,poNumSearch,vendorSearch,startDate,endDate);
+    let allPOs = this.props.purchaseOrders;
+    //Query: PO # only
+    if(poNumSearch && !vendorSearch && !startDate && !endDate){
+      let poNumFound = false;
+      for(let i = 0;i <allPOs.length; i++){
+        let purchaseOrder = allPOs[i];
+        if(purchaseOrder.po_num==poNumSearch){
+          poNumFound = true;
+          this.setState({
+            foundPOs: [purchaseOrder]
+          }, function(){
+            console.log("POs matching Query: ",this.state.foundPOs)
+          })
+        }
+      }
+      if(poNumFound===false){
+        console.log("Sorry! PO #"+poNumSearch+" was not found!")
+      }
+    }
+    //Query: Vendor only
+    if(vendorSearch && !poNumSearch && !startDate && !endDate){
+      console.log("vendor only");
+      let vendorFound = false;
+      let matchingPOs = [];
+      for(let i = 0; i< allPOs.length; i++){
+        let purchaseOrder = allPOs[i];
+        if(purchaseOrder.vendor === vendorSearch){
+          vendorFound = true;
+          matchingPOs.push(purchaseOrder);
+        }
+      }
+      this.setState({
+        foundPOs: matchingPOs
+      })
+      if(vendorFound===false){
+        console.log("Sorry! PO for "+vendorSearch+" was not found!")
+      }
+    }
+    //Query: PO# and both dates
+    if(poNumSearch && startDate && endDate && !vendorSearch){
+      console.log("PO and dates")
+    }
+    //Query: Vendor and both dates
+    if(vendorSearch && startDate && endDate && !poNumSearch){
+      console.log("vendor and dates")
+    }
+    //Query: Dates only
+    if(startDate && endDate && !vendorSearch && !poNumSearch){
+      console.log("Dates only")
+    }
   }
 }
 

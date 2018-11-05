@@ -195,24 +195,6 @@ const items = {
   }
 }
 
-const search = {
-  get: function(req,res){
-    let userId = req.query.userId;
-    let poNumSearch = req.query.poNumSearch;
-    let vendorSearch = req.query.vendorSearch;
-    let startDate = req.query.startDate;
-    let endDate = req.query.endDate;
-
-    mod.search.get(userId, poNumSearch, vendorSearch, startDate, endDate, function(err,results){
-      if(err){
-        throw err;
-      } else {
-        res.send(results)
-      }
-    })
-  }
-}
-
 module.exports = {
-    login, signup, vendors, projects, orders, items, orderDets, orderId, search
+    login, signup, vendors, projects, orders, items, orderDets, orderId
 }
