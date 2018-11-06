@@ -114,10 +114,10 @@ searchPO(){
   let startDate = document.getElementById("startDate").value;
   let endDate = document.getElementById("endDate").value;
   if(!startDate && endDate || startDate && !endDate){
-    console.log("INSERT BOTH DATES")
+    alert("INSERT BOTH DATES")
   }else{
     let allPOs = this.props.purchaseOrders;
-    //Query: PO # only
+  //Query: PO # only
     if(poNumSearch && !vendorSearch && !startDate && !endDate){
       let poNumFound = false;
       for(let i = 0;i <allPOs.length; i++){
@@ -132,10 +132,10 @@ searchPO(){
         }
       }
       if(poNumFound===false){
-        console.log("Sorry! PO #"+poNumSearch+" was not found!")
+        alert("Sorry! PO #"+poNumSearch+" was not found!")
       }
     }
-    //Query: Vendor only
+  //Query: Vendor only
     if(vendorSearch && !poNumSearch && !startDate && !endDate){
       console.log("vendor only");
       let vendorFound = false;
@@ -151,20 +151,61 @@ searchPO(){
         foundPOs: matchingPOs
       })
       if(vendorFound===false){
-        console.log("Sorry! PO for "+vendorSearch+" was not found!")
+        alert("Sorry! PO for "+vendorSearch+" was not found!")
       }
     }
-    //Query: PO# and both dates
-    if(poNumSearch && startDate && endDate && !vendorSearch){
-      console.log("PO and dates")
-    }
-    //Query: Vendor and both dates
+  //Query: Vendor and both dates
     if(vendorSearch && startDate && endDate && !poNumSearch){
-      console.log("vendor and dates")
+      console.log("vendor and dates");
+      let found = false;
+      let matchingPOs = [];
+
+      let startDateTime = new Date(startDate).getTime();
+      let endDateTime = new Date(endDate).getTime();
+
+      for(let i = 0; i<allPOs.length; i++){
+        let purchaseOrder = allPOs[i];
+        let poCreated = allPOs[i].date_created.split('/');
+        let poDate = new Date(poCreated[2], poCreated[0]-1, poCreated[1]).getTime();
+
+        if(vendorSearch===purchaseOrder.vendor && poDate >= startDateTime && poDate <= endDateTime){
+          found = true;
+          matchingPOs.push(purchaseOrder);
+        }
+      }
+
+      this.setState({
+        foundPOs: matchingPOs
+      })
+
+      if (found===false){
+        alert("Sorry! No POs between "+startDate+" and "+endDate+" for "+vendorSearch+" were found.")
+      }
     }
-    //Query: Dates only
+  //Query: Dates only
     if(startDate && endDate && !vendorSearch && !poNumSearch){
       console.log("Dates only")
+      let found = false;
+      let matchingPOs = [];
+
+      let startDateTime = new Date(startDate).getTime();
+      let endDateTime = new Date(endDate).getTime();
+
+      for(let i = 0; i < allPOs.length; i++){
+        let purchaseOrder=allPOs[i];
+        let poCreated=allPOs[i].date_created.split('/');
+        let poDate = new Date(poCreated[2], poCreated[0]-1, poCreated[1]).getTime();
+        if(poDate >= startDateTime && poDate <=endDateTime){
+          found = true;
+          matchingPOs.push(purchaseOrder);
+        }
+      }
+      this.setState({
+        foundPOs: matchingPOs
+      })
+      if (found===false){
+        alert("Sorry! No POs between "+startDate+" and "+endDate+" were found.")
+      }
     }
   }
 }
