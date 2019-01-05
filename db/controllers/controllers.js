@@ -1,6 +1,5 @@
 const mod = require('../models/models');
-const bcrypt = require('bcrypt');
-const salt = 10;
+const bcrypt = require('bcrypt-nodejs');
 
 const login = {
     get: function(req, res){
@@ -45,7 +44,7 @@ const signup = {
     post: function(req, res){
         let username = req.body.params.username;
         let password = req.body.params.pass;
-        bcrypt.hash(password, salt, function(err, hash) {
+        bcrypt.hash(password, null, null, function(err, hash) {
           mod.userSignup.post(username, hash, function(err, results){
               if (err){
                   throw err;
